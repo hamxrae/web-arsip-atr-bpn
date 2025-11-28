@@ -1,19 +1,19 @@
-# 📋 Sistem Manajemen Arsip ATR/BPN
+# Sistem Manajemen Arsip ATR/BPN
 
-## 📌 Tentang Aplikasi
+## Tentang Aplikasi
 
 `web-arsip-atr-bpn` adalah aplikasi manajemen arsip digital untuk kebutuhan **ATR/BPN (Atasan Tanah Rakyat / Badan Pertanahan Nasional)**. Aplikasi ini dibuat menggunakan **Laravel 10** (backend) dan **Vue.js/Vite** (frontend) untuk memberikan pengalaman pengguna yang modern dan responsif.
 
 Aplikasi ini menyediakan fitur lengkap untuk mengelola:
-- 📄 **Data Buku Tanah** (CRUD dan pencarian)
-- 📜 **Surat Ukur** (dokumen teknis pertanahan)
-- 🤝 **Peminjaman Arsip** (tracking peminjaman dengan approval)
-- ✅ **Pengembalian Arsip** (pencatatan pengembalian dan status)
-- 👥 **Manajemen Pengguna** (autentikasi, registrasi, role-based access)
+- **Data Buku Tanah** (CRUD dan pencarian)
+- **Surat Ukur** (dokumen teknis pertanahan)
+- **Peminjaman Arsip** (tracking peminjaman dengan approval)
+- **Pengembalian Arsip** (pencatatan pengembalian dan status)
+- **Manajemen Pengguna** (autentikasi, registrasi, role-based access)
 
 ---
 
-## 🎯 Model & Relasi Utama
+## Model & Relasi Utama
 
 Aplikasi menggunakan 5 model utama:
 - **User** - Pengguna sistem (admin & staff)
@@ -24,7 +24,7 @@ Aplikasi menggunakan 5 model utama:
 
 ---
 
-## ⚙️ Persyaratan Sistem
+## Persyaratan Sistem
 
 Untuk menjalankan aplikasi, pastikan sistem Anda memenuhi:
 
@@ -50,7 +50,7 @@ Untuk menjalankan aplikasi, pastikan sistem Anda memenuhi:
 
 ---
 
-## 🚀 Cara Clone Repository
+## Cara Clone Repository
 
 ```bash
 # Clone repository dari GitHub
@@ -63,9 +63,9 @@ ls -la
 
 ---
 
-## 📦 Langkah Instalasi (Step-by-Step)
+## Langkah Instalasi (Step-by-Step)
 
-### 1️⃣ Setup Environment File
+### 1. Setup Environment File
 Salin file konfigurasi contoh:
 
 **Windows (Command Prompt / PowerShell):**
@@ -78,28 +78,28 @@ copy .env.example .env
 cp .env.example .env
 ```
 
-### 2️⃣ Install Dependency PHP
+### 2. Install Dependency PHP
 Instal semua package PHP yang diperlukan:
 
 ```bash
 composer install
 ```
 
-### 3️⃣ Install Dependency JavaScript
+### 3. Install Dependency JavaScript
 Instal semua package frontend (Vite, Vue, dll):
 
 ```bash
 npm install
 ```
 
-### 4️⃣ Generate Application Key
+### 4. Generate Application Key
 Generate key untuk enkripsi aplikasi:
 
 ```bash
 php artisan key:generate
 ```
 
-### 5️⃣ Konfigurasi Database (.env)
+### 5. Konfigurasi Database (.env)
 Edit file `.env` dan atur koneksi database (gunakan editor teks):
 
 ```env
@@ -116,7 +116,7 @@ DB_PASSWORD=
 - Ganti `web_arsip_atr_bpn` dengan nama database yang Anda inginkan
 - Pastikan MySQL/MariaDB sudah berjalan
 
-### 6️⃣ Jalankan Migrasi & Seed Database
+### 6. Jalankan Migrasi & Seed Database
 Buat tabel database dan seeder data awal (termasuk admin):
 
 ```bash
@@ -127,14 +127,14 @@ Ini akan:
 - Membuat semua tabel di database
 - Menjalankan seeder untuk membuat user admin default
 
-### 7️⃣ Link Storage (untuk upload file)
+### 7. Link Storage (untuk upload file)
 Buat symbolic link untuk folder penyimpanan file:
 
 ```bash
 php artisan storage:link
 ```
 
-### 8️⃣ Build Assets (Frontend)
+### 8. Build Assets (Frontend)
 Jalankan Vite untuk development (watch mode):
 
 ```bash
@@ -143,7 +143,7 @@ npm run dev
 
 **Di terminal terpisah**, jalankan Laravel:
 
-### 9️⃣ Jalankan Server Development Laravel
+### 9. Jalankan Server Development Laravel
 Mulai server development:
 
 ```bash
@@ -157,7 +157,7 @@ Buka browser dan akses: **`http://localhost:8000`** atau **`http://127.0.0.1:800
 
 ---
 
-## 🔑 Akun Login Default
+## Akun Login Default
 
 Setelah instalasi selesai, gunakan akun admin yang telah dibuat:
 
@@ -168,7 +168,7 @@ Setelah instalasi selesai, gunakan akun admin yang telah dibuat:
 
 ---
 
-## 📋 Perintah Penting (Quick Reference)
+## Perintah Penting (Quick Reference)
 
 ### Setup Awal
 ```bash
@@ -225,9 +225,9 @@ php artisan migrate:status
 
 ---
 
-## 👤 Peran & Tanggung Jawab
+## Peran & Tanggung Jawab
 
-### 🔐 Admin
+### Admin
 Tugas utama admin di sistem:
 
 1. **Manajemen Data Master**
@@ -255,7 +255,7 @@ Tugas utama admin di sistem:
    - Menjalankan seeder data awal
    - Melakukan update aplikasi
 
-### 👥 Staff/User Biasa
+### Staff/User Biasa
 Tugas staff/user biasa:
 
 1. **Melihat Arsip**
@@ -273,7 +273,7 @@ Tugas staff/user biasa:
 
 ---
 
-## 🗂️ ERD (Entity Relationship Diagram)
+## ERD (Entity Relationship Diagram)
 
 ### Relasi Antar Tabel
 
@@ -359,7 +359,7 @@ Lihat file lengkap: [`docs/erd.mmd`](docs/erd.mmd)
 
 ---
 
-## 🛠️ Struktur Folder Proyek
+## Struktur Folder Proyek
 
 ```
 web-arsip-atr-bpn/
@@ -398,15 +398,15 @@ web-arsip-atr-bpn/
 
 ---
 
-## 🐛 Troubleshooting & Tips
+## Troubleshooting & Tips
 
-### ❌ Error: "Aplikasi key tidak digenerate"
+### Error: "Aplikasi key tidak digenerate"
 **Solusi:**
 ```bash
 php artisan key:generate
 ```
 
-### ❌ Error: "Tidak bisa connect ke database"
+### Error: "Tidak bisa connect ke database"
 **Solusi:**
 1. Pastikan MySQL/MariaDB berjalan
 2. Cek konfigurasi `.env` (DB_HOST, DB_USER, DB_PASSWORD)
@@ -415,7 +415,7 @@ php artisan key:generate
    CREATE DATABASE web_arsip_atr_bpn;
    ```
 
-### ❌ Error: "npm run dev tidak berfungsi"
+### Error: "npm run dev tidak berfungsi"
 **Solusi:**
 1. Verifikasi `vite.config.js` sudah benar
 2. Hapus `node_modules` dan reinstall:
@@ -424,7 +424,7 @@ php artisan key:generate
    npm install
    ```
 
-### ❌ Error: "Email atau password salah" saat login
+### Error: "Email atau password salah" saat login
 **Solusi:**
 1. Pastikan seeder sudah dijalankan:
    ```bash
@@ -432,7 +432,7 @@ php artisan key:generate
    ```
 2. Gunakan email: `admin@example.com` dan password: `12345678`
 
-### ❌ Error: "File upload tidak berfungsi"
+### Error: "File upload tidak berfungsi"
 **Solusi:**
 1. Pastikan folder `storage/app/public` ada dan writable
 2. Jalankan:
@@ -440,7 +440,7 @@ php artisan key:generate
    php artisan storage:link
    ```
 
-### ⚠️ Tips Umum
+### Tips Umum
 - Selalu jalankan `npm run dev` dan `php artisan serve` di terminal terpisah
 - Bersihkan cache jika ada perubaan config:
   ```bash
@@ -451,7 +451,7 @@ php artisan key:generate
 
 ---
 
-## 📊 Technology Stack
+## Technology Stack
 
 | Layer | Technology |
 |-------|-----------|
@@ -464,7 +464,7 @@ php artisan key:generate
 
 ---
 
-## 📝 Lisensi & Kontribusi
+## Lisensi & Kontribusi
 
 - **Lisensi:** MIT
 - **Pemilik/Maintainer:** [hamxrae](https://github.com/hamxrae)
@@ -480,7 +480,7 @@ Untuk berkontribusi:
 
 ---
 
-## 📞 Support & FAQ
+## Support & FAQ
 
 **Q: Bagaimana cara reset password admin?**
 A: Gunakan command:
@@ -506,7 +506,7 @@ mysqldump -u root web_arsip_atr_bpn > backup.sql
 
 ---
 
-## 📌 Catatan Penting
+## Catatan Penting
 
 - **JANGAN push `.env` ke repository** — `.env` sudah di `.gitignore`
 - **JANGAN commit `node_modules` atau `vendor`** — keduanya sudah di `.gitignore`
