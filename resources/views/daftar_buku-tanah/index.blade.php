@@ -2,160 +2,13 @@
 
 @section('content')
 <style>
-    .page-header {
-        background: linear-gradient(135deg, #004d00 0%, #006600 100%);
-        color: white;
-        padding: 30px;
-        border-radius: 15px;
-        margin-bottom: 30px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        box-shadow: 0 8px 25px rgba(0, 77, 0, 0.25);
-    }
-
-    .page-header h3 {
-        font-size: 28px;
-        font-weight: 700;
-        margin-bottom: 0;
-    }
-
-    .btn-add {
-        background: rgba(255, 255, 255, 0.2);
-        border: 2px solid white;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 8px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        text-decoration: none;
-    }
-
-    .btn-add:hover {
-        background: white;
-        color: #004d00;
-    }
-
-    .table-container {
-        background: white;
-        border-radius: 15px;
-        padding: 25px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        border: 1px solid #e0e0e0;
-        overflow-x: auto;
-    }
-
-    .table {
-        margin-bottom: 0;
-    }
-
-    .table thead th {
-        background: linear-gradient(135deg, #004d00, #006600);
-        color: white;
-        border: none;
-        font-weight: 700;
-        padding: 15px;
-        text-align: left;
-    }
-
-    .table tbody tr {
-        transition: all 0.3s ease;
-        border-bottom: 1px solid #e0e0e0;
-    }
-
-    .table tbody tr:hover {
-        background-color: rgba(0, 77, 0, 0.05);
-    }
-
-    .table tbody td {
-        padding: 15px;
-        vertical-align: middle;
-    }
-
-    .badge {
-        display: inline-block;
-        padding: 6px 12px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: 600;
-    }
-
-    .badge-success {
-        background: #d4edda;
-        color: #155724;
-    }
-
-    .badge-warning {
-        background: #fff3cd;
-        color: #856404;
-    }
-
-    .badge-info {
-        background: #d1ecf1;
-        color: #0c5460;
-    }
-
-    .btn-action {
-        padding: 6px 12px;
-        font-size: 12px;
-        border-radius: 6px;
-        margin-right: 5px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        border: none;
-        cursor: pointer;
-        text-decoration: none;
-        display: inline-block;
-    }
-
-    .btn-edit {
-        background: linear-gradient(135deg, #0066cc, #0088ff);
-        color: white;
-    }
-
-    .btn-edit:hover {
-        background: linear-gradient(135deg, #0055aa, #0077ee);
-        transform: translateY(-2px);
-    }
-
-    .btn-delete {
-        background: linear-gradient(135deg, #cc3333, #ff5555);
-        color: white;
-    }
-
-    .btn-delete:hover {
-        background: linear-gradient(135deg, #aa2222, #ee4444);
-        transform: translateY(-2px);
-    }
-
-    .empty-state {
-        text-align: center;
-        padding: 50px 20px;
-        color: #666;
-    }
-
-    .empty-state i {
-        font-size: 60px;
-        color: #ddd;
-        margin-bottom: 20px;
-    }
-
-    @media (max-width: 768px) {
-        .page-header {
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .table-container {
-            padding: 15px;
-        }
-
-        .table thead th,
-        .table tbody td {
-            padding: 10px;
-            font-size: 14px;
-        }
-    }
+    /* Simple, Bootstrap-first styles */
+    .page-header{ padding: 12px 16px; margin-bottom: 1rem; background: #fff; border:1px solid #e9ecef; border-radius:8px; display:flex; justify-content:space-between; align-items:center }
+    .page-header h3{ margin:0; font-size:1.25rem; }
+    .table-container{ background:#fff; border:1px solid #e9ecef; border-radius:8px; padding:12px; }
+    .empty-state{ text-align:center; padding:32px 12px; color:#6c757d }
+    .btn-add{ text-decoration:none }
+    .badge{ border-radius: 0.5rem; padding:.35rem .6rem }
 </style>
 
 <!-- Page Header -->
@@ -163,7 +16,7 @@
     <div>
         <h3><i class="fas fa-book"></i> Daftar Buku Tanah</h3>
     </div>
-    <a href="{{ route('admin.bukutanah.create') }}" class="btn-add">
+    <a href="{{ route('admin.bukutanah.create') }}" class="btn btn-success btn-sm">
         <i class="fas fa-plus"></i> Tambah Buku Tanah
     </a>
 </div>
@@ -203,14 +56,14 @@
                         </span>
                     </td>
                     <td>
-                        <a href="{{ route('admin.bukutanah.edit', $item->id) }}" class="btn-action btn-edit">
-                            <i class="fas fa-edit"></i> Edit
+                        <a href="{{ route('admin.bukutanah.edit', $item->id) }}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-edit"></i>
                         </a>
                         <form action="{{ route('admin.bukutanah.destroy', $item->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn-action btn-delete" onclick="return confirm('Yakin ingin menghapus data ini?')">
-                                <i class="fas fa-trash"></i> Hapus
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus data ini?')">
+                                <i class="fas fa-trash"></i>
                             </button>
                         </form>
                     </td>

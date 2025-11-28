@@ -17,229 +17,25 @@
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
-    <!-- Custom styles for this template-->
+    <!-- Custom styles for this template -->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
 
     <style>
-        :root {
-            --primary-color: #004d00;
-            --primary-light: #006600;
-            --primary-dark: #003300;
-            --accent-color: #008000;
-            --text-dark: #333333;
-            --text-light: #666666;
-            --border-color: #e0e0e0;
-            --success-color: #28a745;
-            --warning-color: #ffc107;
-            --danger-color: #dc3545;
-            --info-color: #17a2b8;
+        :root{
+            --primary: #0b5; /* keep minimal, override where needed */
         }
-
-        body#page-top {
-            background-color: #f8f9fa;
-            color: var(--text-dark);
-        }
-
-        /* Sidebar Styling */
-        .sidebar {
-            background: linear-gradient(180deg, var(--primary-color) 0%, var(--primary-light) 100%) !important;
-            box-shadow: 2px 0 10px rgba(0, 77, 0, 0.15);
-        }
-
-        .sidebar .nav-link {
-            color: rgba(255, 255, 255, 0.8);
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
-            padding-left: 1.25rem;
-        }
-
-        .sidebar .nav-link:hover {
-            color: white;
-            background-color: rgba(0, 77, 0, 0.1);
-            border-left-color: white;
-        }
-
-        .sidebar .nav-link.active {
-            color: white;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-left-color: white;
-            font-weight: 600;
-        }
-
-        .sidebar-brand {
-            background: rgba(0, 0, 0, 0.1);
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .sidebar-brand-text {
-            font-weight: 700;
-            font-size: 1.5rem;
-            letter-spacing: 0.5px;
-        }
-
-        /* Navbar Styling */
-        .topbar {
-            background: white !important;
-            border-bottom: 2px solid var(--border-color);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-
-        .topbar .btn-primary {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-            border: none;
-            transition: all 0.3s ease;
-        }
-
-        .topbar .btn-primary:hover {
-            background: linear-gradient(135deg, var(--primary-light), var(--accent-color));
-            box-shadow: 0 4px 12px rgba(0, 77, 0, 0.3);
-            transform: translateY(-2px);
-        }
-
-        /* Page Heading */
-        .d-sm-flex.align-items-center h1 {
-            color: var(--primary-color);
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        /* Card Styling */
-        .card {
-            border: 1px solid var(--border-color);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-            border-radius: 12px;
-        }
-
-        .card:hover {
-            box-shadow: 0 4px 16px rgba(0, 77, 0, 0.15);
-            transform: translateY(-2px);
-        }
-
-        .card-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-            color: white;
-            border-radius: 12px 12px 0 0;
-            font-weight: 600;
-            border: none;
-        }
-
-        /* Button Styling */
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 77, 0, 0.15);
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(135deg, var(--primary-light), var(--accent-color));
-            box-shadow: 0 4px 16px rgba(0, 77, 0, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background-color: #6c757d;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .btn-secondary:hover {
-            background-color: #5a6268;
-            transform: translateY(-2px);
-        }
-
-        /* Table Styling */
-        .table thead th {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-            color: white;
-            border: none;
-            font-weight: 600;
-            border-radius: 8px 8px 0 0;
-        }
-
-        .table tbody tr:hover {
-            background-color: rgba(0, 77, 0, 0.05);
-        }
-
-        /* Footer Styling */
-        .sticky-footer {
-            background: white;
-            border-top: 2px solid var(--border-color);
-            color: var(--text-light);
-        }
-
-        /* Modal Styling */
-        .modal-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-            color: white;
-            border: none;
-        }
-
-        .modal-header .close {
-            color: white;
-            opacity: 0.8;
-        }
-
-        .modal-header .close:hover {
-            opacity: 1;
-        }
-
-        /* Badge Styling */
-        .badge-danger {
-            background-color: var(--danger-color);
-        }
-
-        /* Alert Styling */
-        .alert-danger {
-            background-color: #fee;
-            color: var(--danger-color);
-            border-left: 4px solid var(--danger-color);
-            border-radius: 8px;
-        }
-
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-            border-left: 4px solid var(--success-color);
-            border-radius: 8px;
-        }
-
-        /* Form Input Styling */
-        .form-control {
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            font-size: 14px;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(0, 77, 0, 0.1);
-        }
-
-        /* Scroll to Top Button */
-        .scroll-to-top {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-            border-radius: 50%;
-            box-shadow: 0 2px 8px rgba(0, 77, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .scroll-to-top:hover {
-            background: linear-gradient(135deg, var(--primary-light), var(--accent-color));
-            box-shadow: 0 4px 16px rgba(0, 77, 0, 0.4);
-            transform: translateY(-2px);
-        }
-
-        /* Divider Styling */
-        .sidebar-divider {
-            border-color: rgba(255, 255, 255, 0.15);
-        }
+        body#page-top{ background-color: #f8f9fa; }
+        /* Keep sidebar readable but simple */
+        .sidebar{ background: #044d00 !important; }
+        .sidebar .nav-link{ color: rgba(255,255,255,0.9); }
+        .sidebar .nav-link.active, .sidebar .nav-link:hover{ background: rgba(255,255,255,0.05); color: #fff; }
+        /* Simple card style using Bootstrap defaults */
+        .card{ border-radius: 8px; }
+        .card-header{ background: transparent; border-bottom: none; font-weight:600; }
+        .form-control{ border-radius:6px; }
+        .btn-primary{ background-color:#006600; border-color:#006600; }
+        .btn-primary:hover{ background-color:#005500; border-color:#005500; }
+        .alert{ border-radius:6px; }
     </style>
 
 </head>
