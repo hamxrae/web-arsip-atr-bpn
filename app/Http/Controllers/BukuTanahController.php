@@ -31,7 +31,7 @@ class BukuTanahController extends Controller
 
         BukuTanah::create($request->all());
 
-        return redirect()->route('bukut.index')->with('success', 'Data berhasil ditambahkan!');
+        return redirect()->route('admin.bukutanah.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     public function edit($id)
@@ -55,12 +55,12 @@ public function update(Request $request, $id)
     $data = BukuTanah::findOrFail($id);
     $data->update($request->all());
 
-    return redirect()->route('bukut.index')->with('success', 'Data berhasil diupdate!');
+    return redirect()->route('admin.bukutanah.index')->with('success', 'Data berhasil diupdate!');
 }
 
     public function destroy($id)
     {
         BukuTanah::destroy($id);
-        return redirect()->route('bukut.index')->with('success', 'Data berhasil dihapus!');
+        return redirect()->route('admin.bukutanah.index')->with('success', 'Data berhasil dihapus!');
     }
 }
