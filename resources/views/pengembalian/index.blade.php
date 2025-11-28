@@ -140,7 +140,7 @@
     <div>
         <h3><i class="fas fa-undo"></i> Data Pengembalian</h3>
     </div>
-    <a href="{{ route('pengembalian.create') }}" class="btn-add">
+    <a href="{{ route('admin.pengembalian.create') }}" class="btn-add">
         <i class="fas fa-plus"></i> Tambah Pengembalian
     </a>
 </div>
@@ -174,10 +174,10 @@
                     <td>{{ $p->email }}</td>
                     <td>{{ \Carbon\Carbon::parse($p->waktu_pengembalian)->format('d M Y H:i') }}</td>
                     <td>
-                        <a href="{{ route('pengembalian.edit', $p->id) }}" class="btn-action btn-edit">
+                        <a href="{{ route('admin.pengembalian.edit', $p->id) }}" class="btn-action btn-edit">
                             <i class="fas fa-edit"></i> Edit
                         </a>
-                        <form action="{{ route('pengembalian.destroy', $p->id) }}" method="POST" style="display:inline;">
+                        <form action="{{ route('admin.pengembalian.destroy', $p->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn-action btn-delete" onclick="return confirm('Yakin ingin menghapus data ini?')">

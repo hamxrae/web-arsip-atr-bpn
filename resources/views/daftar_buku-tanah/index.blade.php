@@ -163,7 +163,7 @@
     <div>
         <h3><i class="fas fa-book"></i> Daftar Buku Tanah</h3>
     </div>
-    <a href="{{ route('bukut.create') }}" class="btn-add">
+    <a href="{{ route('admin.bukutanah.create') }}" class="btn-add">
         <i class="fas fa-plus"></i> Tambah Buku Tanah
     </a>
 </div>
@@ -203,10 +203,10 @@
                         </span>
                     </td>
                     <td>
-                        <a href="{{ route('bukut.edit', $item->id) }}" class="btn-action btn-edit">
+                        <a href="{{ route('admin.bukutanah.edit', $item->id) }}" class="btn-action btn-edit">
                             <i class="fas fa-edit"></i> Edit
                         </a>
-                        <form action="{{ route('bukut.destroy', $item->id) }}" method="POST" style="display:inline;">
+                        <form action="{{ route('admin.bukutanah.destroy', $item->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn-action btn-delete" onclick="return confirm('Yakin ingin menghapus data ini?')">
@@ -221,4 +221,5 @@
     @endif
 </div>
 @endsection
+
 

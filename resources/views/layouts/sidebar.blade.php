@@ -19,25 +19,25 @@
             </li>
             
             <li class="nav-item">
-             <a class="nav-link" href="{{ route('bukut.index') }}" style="border-left: 4px solid transparent; padding-left: 1.25rem; transition: all 0.3s ease;">
+             <a class="nav-link" href="{{ route('admin.bukutanah.index') }}" style="border-left: 4px solid transparent; padding-left: 1.25rem; transition: all 0.3s ease;">
               <i class="fas fa-fw fa-book"></i>
              <span>Daftar Buku Tanah</span></a>
             </li>
 
             <li class="nav-item">
-             <a class="nav-link" href="{{ route('suratukur.index') }}" style="border-left: 4px solid transparent; padding-left: 1.25rem; transition: all 0.3s ease;">
+             <a class="nav-link" href="{{ route('admin.suratukur.index') }}" style="border-left: 4px solid transparent; padding-left: 1.25rem; transition: all 0.3s ease;">
                 <i class="fas fa-fw fa-file"></i>
                 <span>Daftar Surat Ukur</span></a>
             </li>
 
             <li class="nav-item">
-            <a class="nav-link" href="{{ route('peminjam.index') }}" style="border-left: 4px solid transparent; padding-left: 1.25rem; transition: all 0.3s ease;">
+            <a class="nav-link" href="{{ route('admin.peminjam.index') }}" style="border-left: 4px solid transparent; padding-left: 1.25rem; transition: all 0.3s ease;">
                 <i class="fas fa-users"></i>
                 <span>Peminjam</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('pengembalian.index') }}" style="border-left: 4px solid transparent; padding-left: 1.25rem; transition: all 0.3s ease;">
+                <a class="nav-link" href="{{ route('admin.pengembalian.index') }}" style="border-left: 4px solid transparent; padding-left: 1.25rem; transition: all 0.3s ease;">
                     <i class="fas fa-users"></i>
                     <span>Pengembalian</span></a>
             </li>
@@ -48,3 +48,4 @@
  
 
         </ul>
+

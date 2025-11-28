@@ -3,7 +3,7 @@
 @section('content')
 <h3>Tambah Surat Ukur</h3>
 
-<form method="POST" action="{{ route('suratukur.store') }}">
+<form method="POST" action="{{ route('admin.suratukur.store') }}">
     @csrf
 
     <label>Pilih Buku Tanah</label>
@@ -23,3 +23,4 @@
     <button class="btn btn-primary">Simpan</button>
 </form>
 @endsection
+

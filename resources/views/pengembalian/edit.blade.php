@@ -3,7 +3,7 @@
 @section('content')
 <h3>Edit Pengembalian</h3>
 
-<form method="POST" action="{{ route('pengembalian.update', $pengembalian->id) }}">
+<form method="POST" action="{{ route('admin.pengembalian.update', $pengembalian->id) }}">
     @csrf
     @method('PUT')
 
@@ -32,3 +32,4 @@
     <button class="btn btn-primary">Update</button>
 </form>
 @endsection
+

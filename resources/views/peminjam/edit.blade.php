@@ -228,7 +228,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('peminjam.update', $peminjam->id) }}" enctype="multipart/form-data" novalidate>
+        <form method="POST" action="{{ route('admin.peminjam.update', $peminjam->id) }}" enctype="multipart/form-data" novalidate>
             @csrf
             @method('PUT')
 
@@ -378,7 +378,7 @@
                 <button type="submit" class="btn-submit">
                     <i class="fas fa-save"></i> Update
                 </button>
-                <a href="{{ route('peminjam.index') }}" class="btn-cancel">
+                <a href="{{ route('admin.peminjam.index') }}" class="btn-cancel">
                     <i class="fas fa-times"></i> Batal
                 </a>
             </div>

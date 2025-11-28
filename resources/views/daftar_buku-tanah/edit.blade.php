@@ -3,7 +3,7 @@
 @section('content')
 <h3>Edit Buku Tanah</h3>
 
-<form method="POST" action="{{ route('bukut.update', $data->id) }}">
+<form method="POST" action="{{ route('admin.bukutanah.update', $data->id) }}">
     @csrf
     @method('PUT')
 
@@ -34,3 +34,4 @@
     <button class="btn btn-primary">Update</button>
 </form>
 @endsection
+

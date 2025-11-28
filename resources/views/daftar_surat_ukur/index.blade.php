@@ -140,7 +140,7 @@
     <div>
         <h3><i class="fas fa-file"></i> Data Surat Ukur</h3>
     </div>
-    <a href="{{ route('suratukur.create') }}" class="btn-add">
+    <a href="{{ route('admin.suratukur.create') }}" class="btn-add">
         <i class="fas fa-plus"></i> Tambah Surat Ukur
     </a>
 </div>
@@ -174,10 +174,10 @@
                     <td>{{ $item->bukuTanah->no_buku_tanah ?? '-' }}</td>
                     <td>{{ $item->bukuTanah->nama_pemilik ?? '-' }}</td>
                     <td>
-                        <a href="{{ route('suratukur.edit', $item->id) }}" class="btn-action btn-edit">
+                        <a href="{{ route('admin.suratukur.edit', $item->id) }}" class="btn-action btn-edit">
                             <i class="fas fa-edit"></i> Edit
                         </a>
-                        <form action="{{ route('suratukur.destroy', $item->id) }}" method="POST" style="display:inline;">
+                        <form action="{{ route('admin.suratukur.destroy', $item->id) }}" method="POST" style="display:inline;">
                             @csrf 
                             @method('DELETE')
                             <button type="submit" class="btn-action btn-delete" onclick="return confirm('Yakin ingin menghapus data ini?')">

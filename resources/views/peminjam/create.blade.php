@@ -182,7 +182,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('peminjam.store') }}" enctype="multipart/form-data" novalidate>
+        <form method="POST" action="{{ route('admin.peminjam.store') }}" enctype="multipart/form-data" novalidate>
             @csrf
 
             <!-- Nama Peminjam -->
@@ -310,7 +310,7 @@
                 <button type="submit" class="btn-submit">
                     <i class="fas fa-save"></i> Simpan
                 </button>
-                <a href="{{ route('peminjam.index') }}" class="btn-cancel" style="text-decoration: none; text-align: center;">
+                <a href="{{ route('admin.peminjam.index') }}" class="btn-cancel" style="text-decoration: none; text-align: center;">
                     <i class="fas fa-times"></i> Batal
                 </a>
             </div>

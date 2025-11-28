@@ -150,7 +150,7 @@
     <div>
         <h3><i class="fas fa-users"></i> Daftar Peminjam</h3>
     </div>
-    <a href="{{ route('peminjam.create') }}" class="btn-add">
+    <a href="{{ route('admin.peminjam.create') }}" class="btn-add">
         <i class="fas fa-plus"></i> Tambah Peminjam
     </a>
 </div>
@@ -192,10 +192,10 @@
                     <td>{{ $item->email }}</td>
                     <td>{{ $item->suratUkur->no_surat_tanah ?? '-' }}</td>
                     <td>
-                        <a href="{{ route('peminjam.edit', $item->id) }}" class="btn-action btn-edit">
+                        <a href="{{ route('admin.peminjam.edit', $item->id) }}" class="btn-action btn-edit">
                             <i class="fas fa-edit"></i> Edit
                         </a>
-                        <form action="{{ route('peminjam.destroy', $item->id) }}" method="POST" style="display:inline;">
+                        <form action="{{ route('admin.peminjam.destroy', $item->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn-action btn-delete" onclick="return confirm('Yakin ingin menghapus data ini?')">
