@@ -1,202 +1,525 @@
-**Tentang Aplikasi**
+# 📋 Sistem Manajemen Arsip ATR/BPN
 
-`web-arsip-atr-bpn` adalah aplikasi manajemen arsip untuk kebutuhan ATR/BPN yang dibuat dengan Laravel (backend) dan asset front-end standar. Aplikasi ini menyediakan fitur manajemen data buku tanah, surat ukur, peminjaman arsip, pengembalian, serta manajemen pengguna dan peran.
+## 📌 Tentang Aplikasi
 
-Model penting di aplikasi ini antara lain: `BukuTanah`, `SuratUkur`, `Peminjam`, `Pengembalian`, dan `User`.
+`web-arsip-atr-bpn` adalah aplikasi manajemen arsip digital untuk kebutuhan **ATR/BPN (Atasan Tanah Rakyat / Badan Pertanahan Nasional)**. Aplikasi ini dibuat menggunakan **Laravel 10** (backend) dan **Vue.js/Vite** (frontend) untuk memberikan pengalaman pengguna yang modern dan responsif.
 
-**Fitur Utama:**
-- **Manajemen Buku Tanah:** CRUD data buku tanah.
-- **Manajemen Surat Ukur:** Simpan dan kelola dokumen surat ukur.
-- **Peminjaman & Pengembalian:** Alur peminjaman arsip dan pencatatan pengembalian.
-- **Autentikasi & Role:** Login, register, dan hak akses (admin/user).
+Aplikasi ini menyediakan fitur lengkap untuk mengelola:
+- 📄 **Data Buku Tanah** (CRUD dan pencarian)
+- 📜 **Surat Ukur** (dokumen teknis pertanahan)
+- 🤝 **Peminjaman Arsip** (tracking peminjaman dengan approval)
+- ✅ **Pengembalian Arsip** (pencatatan pengembalian dan status)
+- 👥 **Manajemen Pengguna** (autentikasi, registrasi, role-based access)
 
-**Persyaratan Sistem**
-- **PHP:** >= 8.1
-- **Composer:** untuk dependency PHP
-- **Node.js / npm:** untuk asset (disarankan Node 16+)
-- **Database:** MySQL / MariaDB (atau database lain yang didukung Laravel)
-- **Server web:** XAMPP / nginx / Apache (opsional saat development gunakan `php artisan serve`)
-- **Ekstensi PHP yang umum diperlukan:** `pdo`, `mbstring`, `openssl`, `tokenizer`, `xml`, `json`, `fileinfo`, `ctype`, `bcmath`.
+---
 
-**Clone Repository**
-```
+## 🎯 Model & Relasi Utama
+
+Aplikasi menggunakan 5 model utama:
+- **User** - Pengguna sistem (admin & staff)
+- **BukuTanah** - Data kepemilikan tanah
+- **SuratUkur** - Dokumen pengukuran tanah
+- **Peminjam** - Catatan peminjaman arsip
+- **Pengembalian** - Catatan pengembalian arsip
+
+---
+
+## ⚙️ Persyaratan Sistem
+
+Untuk menjalankan aplikasi, pastikan sistem Anda memenuhi:
+
+| Komponen | Versi |
+|----------|-------|
+| **PHP** | >= 8.1 |
+| **Composer** | Latest |
+| **Node.js** | 16+ (disarankan 18 LTS) |
+| **npm** | 8+ |
+| **Database** | MySQL 5.7+ / MariaDB 10.3+ |
+| **Web Server** | Apache / Nginx / XAMPP (development) |
+
+### Ekstensi PHP Wajib
+- `pdo` (database connection)
+- `mbstring` (string handling)
+- `openssl` (encryption)
+- `tokenizer` (code parsing)
+- `xml` (XML handling)
+- `json` (JSON parsing)
+- `fileinfo` (file validation)
+- `ctype` (character type checking)
+- `bcmath` (arbitrary precision math)
+
+---
+
+## 🚀 Cara Clone Repository
+
+```bash
+# Clone repository dari GitHub
 git clone https://github.com/hamxrae/web-arsip-atr-bpn.git
 cd web-arsip-atr-bpn
+
+# Verifikasi struktur folder
+ls -la
 ```
 
-**Langkah Instalasi (Development)**
-1. Salin file environment dan atur konfigurasi database.
+---
 
-```
+## 📦 Langkah Instalasi (Step-by-Step)
+
+### 1️⃣ Setup Environment File
+Salin file konfigurasi contoh:
+
+**Windows (Command Prompt / PowerShell):**
+```cmd
 copy .env.example .env
 ```
 
-2. Install dependency PHP dengan Composer.
-
+**Linux/Mac:**
+```bash
+cp .env.example .env
 ```
+
+### 2️⃣ Install Dependency PHP
+Instal semua package PHP yang diperlukan:
+
+```bash
 composer install
 ```
 
-3. Install dependency JavaScript dengan npm.
+### 3️⃣ Install Dependency JavaScript
+Instal semua package frontend (Vite, Vue, dll):
 
-```
+```bash
 npm install
 ```
 
-4. Buat application key (jika belum ada) dan link storage.
+### 4️⃣ Generate Application Key
+Generate key untuk enkripsi aplikasi:
 
-```
+```bash
 php artisan key:generate
-php artisan storage:link
 ```
 
-5. Atur variabel DB di `.env` (contoh):
+### 5️⃣ Konfigurasi Database (.env)
+Edit file `.env` dan atur koneksi database (gunakan editor teks):
 
-```
+```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=nama_database
+DB_DATABASE=web_arsip_atr_bpn
 DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-6. Jalankan migrasi dan seeder (opsional jika ada seeders):
+**Catatan:**
+- Jika menggunakan XAMPP, default `DB_USERNAME=root` dan `DB_PASSWORD=kosong`
+- Ganti `web_arsip_atr_bpn` dengan nama database yang Anda inginkan
+- Pastikan MySQL/MariaDB sudah berjalan
 
-```
+### 6️⃣ Jalankan Migrasi & Seed Database
+Buat tabel database dan seeder data awal (termasuk admin):
+
+```bash
 php artisan migrate --seed
 ```
 
-7. Jalankan build assets (development):
+Ini akan:
+- Membuat semua tabel di database
+- Menjalankan seeder untuk membuat user admin default
 
+### 7️⃣ Link Storage (untuk upload file)
+Buat symbolic link untuk folder penyimpanan file:
+
+```bash
+php artisan storage:link
 ```
+
+### 8️⃣ Build Assets (Frontend)
+Jalankan Vite untuk development (watch mode):
+
+```bash
 npm run dev
 ```
 
-8. Jalankan server development Laravel:
+**Di terminal terpisah**, jalankan Laravel:
 
-```
+### 9️⃣ Jalankan Server Development Laravel
+Mulai server development:
+
+```bash
 php artisan serve
 ```
 
-Setelah langkah di atas, buka `http://127.0.0.1:8000` (atau URL yang ditampilkan oleh `php artisan serve`).
+Server akan berjalan di: `http://127.0.0.1:8000`
 
-**Perintah Penting**
-- **Install dependencies PHP:** `composer install`
-- **Install dependencies JS:** `npm install`
-- **Generate app key:** `php artisan key:generate`
-- **Migrate & seed DB:** `php artisan migrate --seed`
-- **Link storage:** `php artisan storage:link`
-- **Run dev server:** `php artisan serve`
-- **Build assets dev:** `npm run dev`
+### Hasil Akhir
+Buka browser dan akses: **`http://localhost:8000`** atau **`http://127.0.0.1:8000`**
 
-**Peran Admin & Tugas**
-- **Admin:**
-  - Mengelola (CRUD) data buku tanah, surat ukur, dan arsip.
-  - Menyetujui/menolak permintaan peminjaman jika aplikasi menerapkan alur approval.
-  - Mengelola akun pengguna dan hak akses.
-  - Menjalankan backup database dan mengawasi integritas data.
-  - Menjalankan seed data awal saat setup lingkungan development atau staging.
-- **User biasa:**
-  - Melihat arsip, melakukan permintaan peminjaman, dan melihat riwayat peminjaman.
+---
 
-**ERD (Entity Relationship Diagram) — Ringkasan Relasi**
+## 🔑 Akun Login Default
 
-Relasi inti (singkat):
-- `User` 1---N `Peminjam` (user dapat membuat banyak peminjaman)
-- `Peminjam` N---1 `BukuTanah` (peminjaman terkait dengan satu atau beberapa buku tanah, tergantung implementasi)
-- `Pengembalian` 1---1 `Peminjam` (setiap pengembalian terkait peminjaman)
-- `BukuTanah` 1---N `SuratUkur` (satu buku tanah dapat punya banyak surat ukur)
+Setelah instalasi selesai, gunakan akun admin yang telah dibuat:
 
-Contoh ERD sederhana (Mermaid):
+| Field | Value |
+|-------|-------|
+| **Email** | admin@example.com |
+| **Password** | 12345678 |
+
+---
+
+## 📋 Perintah Penting (Quick Reference)
+
+### Setup Awal
+```bash
+# Salin environment
+copy .env.example .env              # Windows
+cp .env.example .env                # Linux/Mac
+
+# Install dependency
+composer install
+npm install
+
+# Generate key & migrate
+php artisan key:generate
+php artisan migrate --seed
+php artisan storage:link
+```
+
+### Development (Jalankan di 2 Terminal)
+
+**Terminal 1 - Frontend (Assets):**
+```bash
+npm run dev
+```
+
+**Terminal 2 - Backend (Laravel Server):**
+```bash
+php artisan serve
+```
+
+### Build untuk Production
+```bash
+# Build optimized assets
+npm run build
+
+# Clear cache & compile
+php artisan config:cache
+php artisan route:cache
+```
+
+### Troubleshooting
+```bash
+# Refresh database (hapus semua data, re-migrate, re-seed)
+php artisan migrate:refresh --seed
+
+# Flush all cache
+php artisan cache:clear
+
+# Generate seeder baru (jika perlu user tambahan)
+php artisan db:seed --class=AdminSeeder
+
+# Check migrations status
+php artisan migrate:status
+```
+
+---
+
+## 👤 Peran & Tanggung Jawab
+
+### 🔐 Admin
+Tugas utama admin di sistem:
+
+1. **Manajemen Data Master**
+   - Membuat, mengubah, menghapus data buku tanah
+   - Mengelola dokumen surat ukur (upload, verifikasi)
+   - Menjaga integritas dan akurasi data
+
+2. **Manajemen Peminjaman**
+   - Menyetujui atau menolak permohonan peminjaman arsip
+   - Memonitor status peminjaman aktif
+   - Mengelola deadline pengembalian
+
+3. **Manajemen Pengguna**
+   - Membuat akun staff/pengguna baru
+   - Mengatur hak akses dan role
+   - Reset password pengguna yang lupa
+
+4. **Monitoring & Maintenance**
+   - Mengawasi log aktivitas sistem
+   - Melakukan backup database berkala
+   - Mengelola file upload yang tersimpan
+
+5. **Setup & Deployment**
+   - Menjalankan migrasi pada environment baru
+   - Menjalankan seeder data awal
+   - Melakukan update aplikasi
+
+### 👥 Staff/User Biasa
+Tugas staff/user biasa:
+
+1. **Melihat Arsip**
+   - Mencari dan melihat data buku tanah
+   - Melihat dokumen surat ukur terkait
+
+2. **Peminjaman Arsip**
+   - Mengajukan permohonan peminjaman
+   - Melihat status peminjaman mereka
+   - Mengembalikan arsip yang dipinjam
+
+3. **Riwayat & Laporan**
+   - Melihat riwayat peminjaman pribadi
+   - Melihat status pengembalian
+
+---
+
+## 🗂️ ERD (Entity Relationship Diagram)
+
+### Relasi Antar Tabel
+
+```
+┌─────────────────────┐
+│       USERS         │
+├─────────────────────┤
+│ id (PK)             │
+│ name                │
+│ email (UNIQUE)      │
+│ password            │
+│ created_at          │
+│ updated_at          │
+└────────┬────────────┘
+         │
+         │ 1 : N
+         │
+         ▼
+┌─────────────────────┐
+│      PEMINJAM       │
+├─────────────────────┤
+│ id (PK)             │
+│ user_id (FK)        │
+│ buku_tanah_id (FK)  │
+│ tgl_peminjaman      │
+│ tgl_jatuh_tempo     │
+│ status              │
+│ created_at          │
+└─────────────────────┘
+         │
+         │ 1 : 1
+         │
+         ▼
+┌─────────────────────┐
+│    PENGEMBALIAN     │
+├─────────────────────┤
+│ id (PK)             │
+│ peminjam_id (FK)    │
+│ tgl_pengembalian    │
+│ catatan             │
+│ created_at          │
+└─────────────────────┘
+
+┌─────────────────────┐
+│    BUKUTANAH        │
+├─────────────────────┤
+│ id (PK)             │
+│ nomor_surat         │
+│ nama_pemilik        │
+│ alamat              │
+│ luas_tanah          │
+│ status              │
+│ created_at          │
+│ updated_at          │
+└────────┬────────────┘
+         │
+         │ 1 : N
+         │
+         ▼
+┌─────────────────────┐
+│     SURATUKUR       │
+├─────────────────────┤
+│ id (PK)             │
+│ buku_tanah_id (FK)  │
+│ nomor_surat         │
+│ file_path           │
+│ created_at          │
+│ updated_at          │
+└─────────────────────┘
+```
+
+### Diagram Mermaid
 
 ```mermaid
 erDiagram
     USER ||--o{ PEMINJAM : membuat
+    PEMINJAM ||--|| PENGEMBALIAN : memiliki
     PEMINJAM }o--|| BUKUTANAH : terkait
-    PEMINJAM ||--o{ PENGEMBALIAN : memiliki
     BUKUTANAH ||--o{ SURATUKUR : memiliki
 ```
 
-Jika Anda ingin diagram visual (png/svg), gunakan tools seperti MySQL Workbench, dbdiagram.io, atau package Laravel ERD generator (contoh: `beyondcode/laravel-er-diagram-generator`) dan jalankan setelah konfigurasi database.
+Lihat file lengkap: [`docs/erd.mmd`](docs/erd.mmd)
 
-**Tips dan Troubleshooting**
-- Jika mendapat error ekstensi PHP, pastikan ekstensi yang dibutuhkan diaktifkan di `php.ini`.
-- Jika `npm run dev` tidak mengeluarkan file, jalankan `npm run build` untuk produksi atau periksa konfigurasi `vite.config.js`.
-- Jika migrasi gagal karena credential DB, cek kembali nilai `DB_*` di file `.env`.
+---
 
-**Catatan Maintainer**
-- **Repo / Pemilik:** `hamxrae` (lihat `composer.json` dan repo ini).
-- Untuk kontribusi: buka issue atau pull request di repository GitHub.
+## 🛠️ Struktur Folder Proyek
 
-Jika Anda mau, saya juga bisa:
-- Menambahkan diagram ERD sebagai file `docs/erd.png` (membutuhkan input/diagram source),
-- Menambahkan skrip pembuatan environment atau contoh `docker-compose` untuk development.
+```
+web-arsip-atr-bpn/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/       # Controller aplikasi
+│   │   └── Middleware/        # Middleware (auth, etc)
+│   ├── Models/                # Eloquent models
+│   └── ...
+├── bootstrap/
+├── config/
+├── database/
+│   ├── migrations/            # Schema migrations
+│   ├── seeders/               # Data seeders
+│   └── factories/
+├── public/                    # Folder public (CSS, JS)
+├── resources/
+│   ├── views/                 # Blade template views
+│   ├── css/
+│   └── js/
+├── routes/                    # Route definitions
+│   ├── web.php               # Web routes (main)
+│   └── api.php
+├── storage/                   # Upload files, logs
+├── tests/
+├── vendor/                    # Composer packages
+├── node_modules/              # npm packages
+├── .env                       # Environment config (JANGAN PUSH KE GIT)
+├── .env.example               # Environment template
+├── artisan                    # Laravel CLI
+├── composer.json              # PHP dependency
+├── package.json               # npm dependency
+├── vite.config.js             # Vite config
+└── README.md                  # Dokumentasi (file ini)
+```
 
-Terima kasih — beri tahu saya jika mau saya tambahkan bagian dokumentasi yang lebih teknis (API endpoints, flow peminjaman, dll.).
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+---
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 🐛 Troubleshooting & Tips
 
-## About Laravel
+### ❌ Error: "Aplikasi key tidak digenerate"
+**Solusi:**
+```bash
+php artisan key:generate
+```
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### ❌ Error: "Tidak bisa connect ke database"
+**Solusi:**
+1. Pastikan MySQL/MariaDB berjalan
+2. Cek konfigurasi `.env` (DB_HOST, DB_USER, DB_PASSWORD)
+3. Pastikan database sudah dibuat atau buat manual:
+   ```sql
+   CREATE DATABASE web_arsip_atr_bpn;
+   ```
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### ❌ Error: "npm run dev tidak berfungsi"
+**Solusi:**
+1. Verifikasi `vite.config.js` sudah benar
+2. Hapus `node_modules` dan reinstall:
+   ```bash
+   rm -rf node_modules package-lock.json
+   npm install
+   ```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### ❌ Error: "Email atau password salah" saat login
+**Solusi:**
+1. Pastikan seeder sudah dijalankan:
+   ```bash
+   php artisan db:seed --class=AdminSeeder
+   ```
+2. Gunakan email: `admin@example.com` dan password: `12345678`
 
-## Learning Laravel
+### ❌ Error: "File upload tidak berfungsi"
+**Solusi:**
+1. Pastikan folder `storage/app/public` ada dan writable
+2. Jalankan:
+   ```bash
+   php artisan storage:link
+   ```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### ⚠️ Tips Umum
+- Selalu jalankan `npm run dev` dan `php artisan serve` di terminal terpisah
+- Bersihkan cache jika ada perubaan config:
+  ```bash
+  php artisan cache:clear
+  php artisan config:cache
+  ```
+- Gunakan database GUI (DBeaver, MySQL Workbench) untuk melihat struktur tabel
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 📊 Technology Stack
 
-## Laravel Sponsors
+| Layer | Technology |
+|-------|-----------|
+| **Backend** | Laravel 10, PHP 8.1+, MySQL |
+| **Frontend** | Vue.js 3, Vite, Tailwind CSS |
+| **Authentication** | Laravel Sanctum, Session-based |
+| **Storage** | Local filesystem + database |
+| **Asset Pipeline** | Vite |
+| **Package Manager** | Composer, npm |
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+---
 
-### Premium Partners
+## 📝 Lisensi & Kontribusi
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+- **Lisensi:** MIT
+- **Pemilik/Maintainer:** [hamxrae](https://github.com/hamxrae)
+- **Repository:** https://github.com/hamxrae/web-arsip-atr-bpn
 
-## Contributing
+### Kontribusi
+Untuk berkontribusi:
+1. Fork repository
+2. Buat branch fitur: `git checkout -b fitur/nama-fitur`
+3. Commit perubahan: `git commit -am 'Tambah fitur X'`
+4. Push ke branch: `git push origin fitur/nama-fitur`
+5. Buat Pull Request
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## 📞 Support & FAQ
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**Q: Bagaimana cara reset password admin?**
+A: Gunakan command:
+```bash
+php artisan tinker
+# Kemudian di prompt tinker:
+$user = \App\Models\User::find(1);
+$user->password = Hash::make('password_baru');
+$user->save();
+```
 
-## Security Vulnerabilities
+**Q: Bagaimana cara membuat user baru dari command line?**
+A: Gunakan tinker atau buat seeder baru di `database/seeders/`.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Q: Aplikasi support HTTPS?**
+A: Ya, perbarui `APP_URL` di `.env` menjadi `https://...` dan config web server.
 
-## License
+**Q: Bagaimana cara backup database?**
+A: Gunakan tools seperti DBeaver atau command:
+```bash
+mysqldump -u root web_arsip_atr_bpn > backup.sql
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## 📌 Catatan Penting
+
+- **JANGAN push `.env` ke repository** — `.env` sudah di `.gitignore`
+- **JANGAN commit `node_modules` atau `vendor`** — keduanya sudah di `.gitignore`
+- Untuk production, jalankan: `npm run build` dan `php artisan config:cache`
+- Selalu backup database sebelum update aplikasi
+
+---
+
+**Dokumentasi terakhir diperbarui:** November 28, 2025  
+**Versi Aplikasi:** 1.0.0  
+**Framework:** Laravel 10
+
+Untuk informasi lebih lanjut, baca file dokumentasi lain:
+- [`DOKUMENTASI_LOGIN_REGISTER.md`](DOKUMENTASI_LOGIN_REGISTER.md) - Detail fitur login & register
+- [`QUICK_REFERENCE.md`](QUICK_REFERENCE.md) - Referensi perintah cepat
+- [`RINGKASAN_PERUBAHAN.md`](RINGKASAN_PERUBAHAN.md) - Changelog aplikasi
