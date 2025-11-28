@@ -1,0 +1,21 @@
+%% ERD Mermaid Source for web-arsip-atr-bpn
+%% Save as docs/erd.mmd and convert to PNG with mermaid-cli (optional)
+
+erDiagram
+    USER ||--o{ PEMINJAM : membuat
+    PEMINJAM }o--|| BUKUTANAH : terkait
+    PEMINJAM ||--o{ PENGEMBALIAN : memiliki
+    BUKUTANAH ||--o{ SURATUKUR : memiliki
+
+%% Keterangan singkat:
+%% - USER: tabel `users` (Laravel default)
+%% - PEMINJAM: tabel peminjaman arsip
+%% - BUKUTANAH: tabel buku tanah
+%% - SURATUKUR: tabel surat ukur/permeter
+%% - PENGEMBALIAN: tabel pengembalian terkait peminjaman
+
+%% Cara mengkonversi ke gambar menggunakan mermaid-cli:
+%% 1) Install mermaid-cli (npm):
+%%    npm install -g @mermaid-js/mermaid-cli
+%% 2) Generate PNG/SVG:
+%%    mmdc -i docs/erd.mmd -o docs/erd.png
