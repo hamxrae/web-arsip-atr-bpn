@@ -56,7 +56,14 @@
 
                 <div class="col-md-6">
                     <label class="form-label">Waktu Pengembalian</label>
-                    <input type="datetime-local" name="waktu_pengembalian" class="form-control @error('waktu_pengembalian') is-invalid @enderror" value="{{ old('waktu_pengembalian', $pengembalian->waktu_pengembalian?->format('Y-m-d\TH:i')) }}">
+                    @php
+                        try {
+                            $dtValue = $pengembalian->waktu_pengembalian ? \Carbon\Carbon::parse($pengembalian->waktu_pengembalian)->format('Y-m-d\TH:i') : null;
+                        } catch (\Exception $e) {
+                            $dtValue = old('waktu_pengembalian', null);
+                        }
+                    @endphp
+                    <input type="datetime-local" name="waktu_pengembalian" class="form-control @error('waktu_pengembalian') is-invalid @enderror" value="{{ old('waktu_pengembalian', $dtValue) }}">
                     @error('waktu_pengembalian')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
 
