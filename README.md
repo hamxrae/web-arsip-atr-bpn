@@ -1,8 +1,8 @@
-# 📋 Web Arsip ATR-BPN (Archive Management System)
+# Web Arsip ATR-BPN (Archive Management System)
 
 Aplikasi web untuk mengelola arsip dokumen tanah (Buku Tanah, Surat Ukur, data Peminjam, dan Pengembalian) yang digunakan oleh Badan Pertanahan Nasional (BPN).
 
-## 📖 Daftar Isi
+## Daftar Isi
 
 1. [Tentang Aplikasi](#tentang-aplikasi)
 2. [Fitur Utama](#fitur-utama)
@@ -18,23 +18,23 @@ Aplikasi web untuk mengelola arsip dokumen tanah (Buku Tanah, Surat Ukur, data P
 
 ---
 
-## 🎯 Tentang Aplikasi
+## Tentang Aplikasi
 
 **Web Arsip ATR-BPN** adalah sistem manajemen arsip digital yang dirancang untuk mengelola:
-- 📚 **Buku Tanah**: Dokumen kepemilikan lahan/tanah
-- 📄 **Surat Ukur**: Dokumen ukuran dan batas-batas tanah
-- 👤 **Data Peminjam**: Informasi pihak yang meminjam dokumen
-- 📮 **Pengembalian**: Pencatatan pengembalian dokumen yang telah dipinjam
+- **Buku Tanah**: Dokumen kepemilikan lahan/tanah
+- **Surat Ukur**: Dokumen ukuran dan batas-batas tanah
+- **Data Peminjam**: Informasi pihak yang meminjam dokumen
+- **Pengembalian**: Pencatatan pengembalian dokumen yang telah dipinjam
 
 Aplikasi ini membantu BPN dalam:
-✅ Menyimpan dan mengorganisir dokumen arsip  
-✅ Melacak peminjaman dokumen  
-✅ Mengelola data pengembalian  
-✅ Meningkatkan efisiensi administrasi  
+- Menyimpan dan mengorganisir dokumen arsip
+- Melacak peminjaman dokumen
+- Mengelola data pengembalian
+- Meningkatkan efisiensi administrasi  
 
 ---
 
-## ✨ Fitur Utama
+## Fitur Utama
 
 | Fitur | Deskripsi |
 |-------|-----------|
@@ -49,7 +49,7 @@ Aplikasi ini membantu BPN dalam:
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 | Layer | Teknologi | Versi |
 |-------|-----------|-------|
@@ -63,7 +63,7 @@ Aplikasi ini membantu BPN dalam:
 
 ---
 
-## 📋 Requirements
+## Requirements
 
 Sebelum menginstal aplikasi, pastikan Anda memiliki:
 
@@ -96,7 +96,7 @@ mysql --version
 
 ---
 
-## 🚀 Instalasi
+## Instalasi
 
 ### Step 1: Clone Repository dari GitHub
 
@@ -213,7 +213,7 @@ The [public\storage] link has been connected to [storage\app/public]
 
 ---
 
-## ▶️ Menjalankan Aplikasi
+## Menjalankan Aplikasi
 
 Setelah instalasi selesai, Anda perlu menjalankan dua terminal secara bersamaan:
 
@@ -252,12 +252,12 @@ http://127.0.0.1:8000
 ```
 
 **Login dengan akun default:**
-- 📧 Email: `admin@example.com`
-- 🔐 Password: `12345678`
+- Email: `admin@example.com`
+- Password: `12345678`
 
 ---
 
-## 🗄 Struktur Database (ERD)
+## Struktur Database (ERD)
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -372,7 +372,7 @@ Tabel untuk menyimpan data pengembalian dokumen.
 
 ---
 
-## 📊 Diagram UML
+## Diagram UML
 
 ### Class Diagram
 
@@ -532,7 +532,7 @@ Tabel untuk menyimpan data pengembalian dokumen.
 
 ---
 
-## 👤 Admin & Role Pengguna
+## Admin & Role Pengguna
 
 ### Default Admin Account
 
@@ -548,35 +548,35 @@ Tabel untuk menyimpan data pengembalian dokumen.
 Admin memiliki tanggung jawab untuk:
 
 1. **Mengelola Buku Tanah**
-   - ➕ Menambah buku tanah baru
-   - 📝 Mengedit data buku tanah
-   - 🗑️ Menghapus buku tanah
+   - Menambah buku tanah baru
+   - Mengedit data buku tanah
+   - Menghapus buku tanah
 
 2. **Mengelola Surat Ukur**
-   - ➕ Menambah surat ukur baru (dengan relasi ke buku tanah)
-   - 📝 Mengedit data surat ukur
-   - 🗑️ Menghapus surat ukur
+   - Menambah surat ukur baru (dengan relasi ke buku tanah)
+   - Mengedit data surat ukur
+   - Menghapus surat ukur
 
 3. **Mengelola Peminjam**
-   - ➕ Menambah data peminjam baru (dengan foto)
-   - 📝 Mengedit data peminjam
-   - 🗑️ Menghapus data peminjam
-   - 📸 Kelola upload/ubah foto peminjam
+   - Menambah data peminjam baru (dengan foto)
+   - Mengedit data peminjam
+   - Menghapus data peminjam
+   - Kelola upload/ubah foto peminjam
 
 4. **Mengelola Pengembalian**
-   - ➕ Mencatat pengembalian dokumen
-   - 📝 Mengedit data pengembalian
-   - 🗑️ Menghapus data pengembalian
+   - Mencatat pengembalian dokumen
+   - Mengedit data pengembalian
+   - Menghapus data pengembalian
 
 5. **Melihat Laporan**
-   - 📊 Melihat daftar semua buku tanah
-   - 📊 Melihat daftar semua surat ukur
-   - 📊 Melihat daftar semua peminjam
-   - 📊 Melihat daftar semua pengembalian
+   - Melihat daftar semua buku tanah
+   - Melihat daftar semua surat ukur
+   - Melihat daftar semua peminjam
+   - Melihat daftar semua pengembalian
 
 ---
 
-## 🌐 API Routes
+## API Routes
 
 Semua routes dilindungi dengan middleware `auth` dan prefix `/admin`.
 
@@ -626,7 +626,7 @@ DELETE /admin/pengembalian/{id}             → PengembalianController@destroy (
 
 ---
 
-## 🔍 Validasi Data
+## Validasi Data
 
 Aplikasi menggunakan validasi Laravel dengan format array rules:
 
@@ -665,7 +665,7 @@ Aplikasi menggunakan validasi Laravel dengan format array rules:
 
 ---
 
-## 📁 Struktur Folder Penting
+## Struktur Folder Penting
 
 ```
 web-arsip-atr-bpn/
@@ -725,7 +725,7 @@ web-arsip-atr-bpn/
 
 ---
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Error 1: "Call to undefined function storage_path()"
 **Penyebab:** Laravel belum di-load dengan benar  
@@ -820,7 +820,7 @@ ls storage/app/public/peminjam/
 
 ---
 
-## 📝 Catatan Penting
+## Catatan Penting
 
 1. **Security**: Ganti password admin default setelah install
 2. **Environment**: Pastikan `.env` tidak di-commit ke GitHub
@@ -830,17 +830,17 @@ ls storage/app/public/peminjam/
 
 ---
 
-## 📞 Support & Kontribusi
+## Support & Kontribusi
 
 Untuk report bug atau kontribusi, silakan buat issue atau pull request di [GitHub Repository](https://github.com/hamxrae/web-arsip-atr-bpn).
 
 ---
 
-## 📄 License
+## License
 
 Proyek ini menggunakan lisensi MIT. Lihat file LICENSE untuk detail.
 
 ---
 
-**Created with ❤️ by Development Team**  
+**Created by Development Team**  
 **Last Updated: December 1, 2025**
