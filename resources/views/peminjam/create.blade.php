@@ -13,6 +13,9 @@
     </a>
 </div>
 
+<!-- ===== ALERTS ===== -->
+@include('partials.alerts')
+
 <!-- ===== FORM CARD ===== -->
 <div class="card">
     <div class="card-body">
@@ -38,15 +41,23 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label">No Surat Tanah</label>
-                    <input type="text" name="surat_ukur_no" class="form-control @error('surat_ukur_no') is-invalid @enderror" value="{{ old('surat_ukur_no') }}" placeholder="Masukkan No Surat Tanah atau ID">
-                    @error('surat_ukur_no')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    <label class="form-label">No Surat Tanah *</label>
+                    <select name="surat_ukur_id" class="form-select @error('surat_ukur_id') is-invalid @enderror" required>
+                        <option value="">-- Pilih Surat Tanah --</option>
+                        @foreach($suratUkur as $s)
+                            <option value="{{ $s->id }}" {{ old('surat_ukur_id') == $s->id ? 'selected' : '' }}>
+                                {{ $s->no_surat_tanah }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('surat_ukur_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label class="form-label">Foto (opsional)</label>
-                    <input type="file" name="foto" class="form-control @error('foto') is-invalid @enderror">
-                    @error('foto')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    <input type="file" name="foto" class="form-control @error('foto') is-invalid @enderror" accept="image/*">
+                    <small class="text-muted">Format: JPG, JPEG, PNG (Max: 2MB)</small>
+                    @error('foto')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                 </div>
 
                 <div class="col-12 d-flex justify-content-end mt-2">

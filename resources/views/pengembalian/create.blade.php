@@ -13,6 +13,9 @@
     </a>
 </div>
 
+<!-- ===== ALERTS ===== -->
+@include('partials.alerts')
+
 <!-- ===== FORM CARD ===== -->
 <div class="card">
     <div class="card-body">
@@ -26,9 +29,16 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label">No Buku Tanah</label>
-                    <input type="text" name="buku_tanah_no" class="form-control @error('buku_tanah_no') is-invalid @enderror" value="{{ old('buku_tanah_no') }}">
-                    @error('buku_tanah_no')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    <label class="form-label">No Buku Tanah *</label>
+                    <select name="buku_tanah_id" class="form-select @error('buku_tanah_id') is-invalid @enderror" required>
+                        <option value="">-- Pilih Buku Tanah --</option>
+                        @foreach($bukuTanah as $b)
+                            <option value="{{ $b->id }}" {{ old('buku_tanah_id') == $b->id ? 'selected' : '' }}>
+                                {{ $b->no_buku_tanah }} - {{ $b->nama_pemilik }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('buku_tanah_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
 
                 <div class="col-md-6">
@@ -58,35 +68,5 @@
     </div>
 </div>
 
-@endsection
-@extends('layouts.app')
-
-@section('content')
-<h3>Tambah Pengembalian</h3>
-
-<form method="POST" action="{{ route('admin.pengembalian.store') }}">
-    @csrf
-
-    <label>Nama</label>
-    <input type="text" name="nama" class="form-control mb-2" required>
-
-    <label>No Buku Tanah</label>
-    <select name="buku_tanah_id" class="form-control mb-2" required>
-        @foreach ($bukuTanah as $b)
-            <option value="{{ $b->id }}">{{ $b->no_buku_tanah }}</option>
-        @endforeach
-    </select>
-
-    <label>No HP</label>
-    <input type="text" name="no_hp" class="form-control mb-2" required>
-
-    <label>Email</label>
-    <input type="email" name="email" class="form-control mb-2" required>
-
-    <label>Waktu Pengembalian</label>
-    <input type="datetime-local" name="waktu_pengembalian" class="form-control mb-3" required>
-
-    <button class="btn btn-primary">Simpan</button>
-</form>
 @endsection
 

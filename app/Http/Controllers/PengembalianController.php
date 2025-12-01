@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pengembalian;
 use App\Models\BukuTanah;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class PengembalianController extends Controller
 {
@@ -23,17 +24,36 @@ class PengembalianController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required',
-            'buku_tanah_id' => 'required|exists:buku_tanah,id',
-            'no_hp' => 'required',
-            'email' => 'required|email',
-            'waktu_pengembalian' => 'required|date',
+            'nama' => ['required','string','max:255'],
+            'buku_tanah_id' => ['required', Rule::exists((new BukuTanah)->getTable(), 'id')],
+            'no_hp' => ['required','string','max:20','regex:/^(\+62|0)[0-9]{8,12}$/'],
+            'email' => ['required','email'],
+            'waktu_pengembalian' => ['required','date_format:Y-m-d\TH:i'],
+        ], [
+            'nama.required' => 'Nama harus diisi',
+            'buku_tanah_id.required' => 'Buku tanah harus dipilih',
+            'buku_tanah_id.exists' => 'Buku tanah yang dipilih tidak valid',
+            'no_hp.required' => 'No HP harus diisi',
+            'no_hp.regex' => 'Format no HP harus dimulai dengan 62 atau 0, diikuti 8-12 angka',
+            'email.required' => 'Email harus diisi',
+            'email.email' => 'Format email tidak valid',
+            'waktu_pengembalian.required' => 'Waktu pengembalian harus diisi',
+            'waktu_pengembalian.date_format' => 'Format tanggal/waktu harus sesuai (YYYY-MM-DDTHH:MM)',
         ]);
 
-        Pengembalian::create($request->all());
+        try {
+            Pengembalian::create($request->all());
+            return redirect()->route('admin.pengembalian.index')
+                           ->with('success', 'Data pengembalian berhasil ditambahkan.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Gagal menambahkan data: ' . $e->getMessage())->withInput();
+        }
+    }
 
-        return redirect()->route('admin.pengembalian.index')
-                         ->with('success', 'Data pengembalian berhasil ditambahkan.');
+    public function show(Pengembalian $pengembalian)
+    {
+        $pengembalian->load('bukuTanah');
+        return view('pengembalian.show', compact('pengembalian'));
     }
 
     public function edit(Pengembalian $pengembalian)
@@ -45,24 +65,40 @@ class PengembalianController extends Controller
     public function update(Request $request, Pengembalian $pengembalian)
     {
         $request->validate([
-            'nama' => 'required',
-            'buku_tanah_id' => 'required|exists:buku_tanah,id',
-            'no_hp' => 'required',
-            'email' => 'required|email',
-            'waktu_pengembalian' => 'required|date',
+            'nama' => ['required','string','max:255'],
+            'buku_tanah_id' => ['required', Rule::exists((new BukuTanah)->getTable(), 'id')],
+            'no_hp' => ['required','string','max:20','regex:/^(\+62|0)[0-9]{8,12}$/'],
+            'email' => ['required','email'],
+            'waktu_pengembalian' => ['required','date_format:Y-m-d\TH:i'],
+        ], [
+            'nama.required' => 'Nama harus diisi',
+            'buku_tanah_id.required' => 'Buku tanah harus dipilih',
+            'buku_tanah_id.exists' => 'Buku tanah yang dipilih tidak valid',
+            'no_hp.required' => 'No HP harus diisi',
+            'no_hp.regex' => 'Format no HP harus dimulai dengan 62 atau 0, diikuti 8-12 angka',
+            'email.required' => 'Email harus diisi',
+            'email.email' => 'Format email tidak valid',
+            'waktu_pengembalian.required' => 'Waktu pengembalian harus diisi',
+            'waktu_pengembalian.date_format' => 'Format tanggal/waktu harus sesuai (YYYY-MM-DDTHH:MM)',
         ]);
 
-        $pengembalian->update($request->all());
-
-        return redirect()->route('admin.pengembalian.index')
-                         ->with('success', 'Data pengembalian berhasil diperbarui.');
+        try {
+            $pengembalian->update($request->all());
+            return redirect()->route('admin.pengembalian.index')
+                           ->with('success', 'Data pengembalian berhasil diperbarui.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Gagal memperbarui data: ' . $e->getMessage())->withInput();
+        }
     }
 
     public function destroy(Pengembalian $pengembalian)
     {
-        $pengembalian->delete();
-
-        return redirect()->route('admin.pengembalian.index')
-                         ->with('success', 'Data pengembalian berhasil dihapus.');
+        try {
+            $pengembalian->delete();
+            return redirect()->route('admin.pengembalian.index')
+                           ->with('success', 'Data pengembalian berhasil dihapus.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Gagal menghapus data: ' . $e->getMessage());
+        }
     }
 }

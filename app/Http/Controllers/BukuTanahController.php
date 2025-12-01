@@ -22,16 +22,29 @@ class BukuTanahController extends Controller
     {
         $request->validate([
             'no_buku_tanah' => 'required|unique:buku_tanah',
-            'nama_pemilik' => 'required',
-            'desa_kelurahan' => 'required',
-            'kecamatan' => 'required',
+            'nama_pemilik' => 'required|string|max:255',
+            'desa_kelurahan' => 'required|string|max:255',
+            'kecamatan' => 'required|string|max:255',
             'jenis_pelayanan' => 'required|in:Wakaf,Balik_nama,Roya,Perubahan_hak,Skpt',
-            'status_berkas' => 'required',
+            'status_berkas' => 'required|string|max:255',
+        ], [
+            'no_buku_tanah.required' => 'No Buku Tanah harus diisi',
+            'no_buku_tanah.unique' => 'No Buku Tanah sudah terdaftar',
+            'nama_pemilik.required' => 'Nama Pemilik harus diisi',
         ]);
 
-        BukuTanah::create($request->all());
+        try {
+            BukuTanah::create($request->all());
+            return redirect()->route('admin.bukutanah.index')->with('success', 'Data berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Gagal menambahkan data: ' . $e->getMessage())->withInput();
+        }
+    }
 
-        return redirect()->route('admin.bukutanah.index')->with('success', 'Data berhasil ditambahkan!');
+    public function show($id)
+    {
+        $data = BukuTanah::findOrFail($id);
+        return view('daftar_buku-tanah.show', compact('data'));
     }
 
     public function edit($id)
@@ -44,23 +57,30 @@ class BukuTanahController extends Controller
 public function update(Request $request, $id)
 {
     $request->validate([
-        'no_buku_tanah' => 'required',
-        'nama_pemilik' => 'required',
-        'desa_kelurahan' => 'required',
-        'kecamatan' => 'required',
-       'jenis_pelayanan' => 'required|in:Wakaf,Balik_nama,Roya,Perubahan_hak,Skpt',
-        'status_berkas' => 'required',
+        'no_buku_tanah' => 'required|unique:buku_tanah,no_buku_tanah,' . $id,
+        'nama_pemilik' => 'required|string|max:255',
+        'desa_kelurahan' => 'required|string|max:255',
+        'kecamatan' => 'required|string|max:255',
+        'jenis_pelayanan' => 'required|in:Wakaf,Balik_nama,Roya,Perubahan_hak,Skpt',
+        'status_berkas' => 'required|string|max:255',
     ]);
 
-    $data = BukuTanah::findOrFail($id);
-    $data->update($request->all());
-
-    return redirect()->route('admin.bukutanah.index')->with('success', 'Data berhasil diupdate!');
+    try {
+        $data = BukuTanah::findOrFail($id);
+        $data->update($request->all());
+        return redirect()->route('admin.bukutanah.index')->with('success', 'Data berhasil diupdate!');
+    } catch (\Exception $e) {
+        return back()->with('error', 'Gagal mengupdate data: ' . $e->getMessage())->withInput();
+    }
 }
 
     public function destroy($id)
     {
-        BukuTanah::destroy($id);
-        return redirect()->route('admin.bukutanah.index')->with('success', 'Data berhasil dihapus!');
+        try {
+            BukuTanah::destroy($id);
+            return redirect()->route('admin.bukutanah.index')->with('success', 'Data berhasil dihapus!');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Gagal menghapus data: ' . $e->getMessage());
+        }
     }
 }

@@ -13,6 +13,9 @@
     <div class="page-subtitle">Manajemen data peminjam arsip ATR/BPN</div>
 </div>
 
+<!-- ===== ALERTS ===== -->
+@include('partials.alerts')
+
 <!-- ===== STATISTICS CARDS ===== -->
 <div class="row g-4 mb-32">
     <!-- Card: Total Peminjam -->

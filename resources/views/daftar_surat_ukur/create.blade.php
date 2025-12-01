@@ -13,6 +13,9 @@
     </a>
 </div>
 
+<!-- ===== ALERTS ===== -->
+@include('partials.alerts')
+
 <!-- ===== FORM CARD ===== -->
 <div class="card">
     <div class="card-body">
@@ -38,9 +41,16 @@
                 </div>
 
                 <div class="col-md-8">
-                    <label class="form-label">No Buku Tanah (hubungkan)</label>
-                    <input type="text" name="buku_tanah_no" class="form-control @error('buku_tanah_no') is-invalid @enderror" value="{{ old('buku_tanah_no') }}" placeholder="Masukkan No Buku Tanah atau ID">
-                    @error('buku_tanah_no')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    <label class="form-label">No Buku Tanah (hubungkan) *</label>
+                    <select name="buku_tanah_id" class="form-select @error('buku_tanah_id') is-invalid @enderror" required>
+                        <option value="">-- Pilih Buku Tanah --</option>
+                        @foreach($bukuTanah as $b)
+                            <option value="{{ $b->id }}" {{ old('buku_tanah_id') == $b->id ? 'selected' : '' }}>
+                                {{ $b->no_buku_tanah }} - {{ $b->nama_pemilik }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('buku_tanah_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
 
                 <div class="col-12 d-flex justify-content-end mt-2">

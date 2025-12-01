@@ -13,6 +13,9 @@
     </a>
 </div>
 
+<!-- ===== ALERTS ===== -->
+@include('partials.alerts')
+
 <!-- ===== FORM CARD ===== -->
 <div class="card">
     <div class="card-body">
