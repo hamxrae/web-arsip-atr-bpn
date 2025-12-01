@@ -66,12 +66,10 @@
                     @forelse($peminjams as $item)
                         <tr>
                             <td>
-                                @if($item->foto)
-                                    <img src="{{ asset('storage/peminjam/'.$item->foto) }}" alt="Foto Peminjam" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px;">
+                                @if($item->foto && file_exists(public_path('storage/peminjam/'.$item->foto)))
+                                    <img src="{{ asset('storage/peminjam/'.$item->foto) }}" alt="Foto Peminjam" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px; display: block;">
                                 @else
-                                    <div style="width: 40px; height: 40px; background-color: #f3f4f6; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #9ca3af;">
-                                        <i class="fas fa-user"></i>
-                                    </div>
+                                    <span style="width: 40px; height: 40px; background-color: #f3f4f6; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #9ca3af; font-size: 18px;">👤</span>
                                 @endif
                             </td>
                             <td>
