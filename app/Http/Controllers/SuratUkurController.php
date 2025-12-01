@@ -33,7 +33,7 @@ class SuratUkurController extends Controller
 
         SuratUkur::create($request->all());
 
-        return redirect()->route('suratukur.index')->with('success', 'Data berhasil ditambahkan!');
+        return redirect()->route('admin.suratukur.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     public function edit($id)
@@ -57,13 +57,13 @@ class SuratUkurController extends Controller
 
     $data->update($request->all());
 
-    return redirect()->route('suratukur.index')
+    return redirect()->route('admin.suratukur.index')
                      ->with('success', 'Data berhasil diperbarui!');
     }
 
     public function destroy($id)
     {
         SuratUkur::destroy($id);
-        return redirect()->route('suratukur.index')->with('success', 'Data berhasil dihapus!');
+        return redirect()->route('admin.suratukur.index')->with('success', 'Data berhasil dihapus!');
     }
 }

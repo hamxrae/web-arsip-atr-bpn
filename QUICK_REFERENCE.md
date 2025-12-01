@@ -369,6 +369,333 @@ SESSION_LIFETIME=120
 
 ---
 
+## 📊 UML / Entity Relationship Diagram (ERD)
+
+### Database Schema Overview
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                          DATABASE SCHEMA                             │
+└─────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────┐
+│       USERS          │
+├──────────────────────┤
+│ id (PK)              │
+│ name (VARCHAR)       │
+│ email (VARCHAR)      │ ◄─── UNIQUE
+│ password (VARCHAR)   │      ENCRYPTED
+│ created_at           │
+│ updated_at           │
+└──────────────────────┘
+
+
+┌─────────────────────────────────┐
+│      BUKU_TANAH                 │
+├─────────────────────────────────┤
+│ id (PK)                         │
+│ no_buku_tanah (VARCHAR) UNIQUE  │
+│ nama_pemilik (VARCHAR)          │
+│ desa_kelurahan (VARCHAR)        │
+│ kecamatan (VARCHAR)             │
+│ jenis_pelayanan (ENUM)          │
+│   └─ Balik_nama                 │
+│   └─ Wakaf                      │
+│   └─ Roya                       │
+│   └─ Perubahan_hak              │
+│   └─ Skpt                       │
+│ status_berkas (ENUM)            │
+│   └─ Berkas Masuk               │
+│   └─ Berkas Keluar              │
+│   └─ Lengkap                    │
+│   └─ Belum Lengkap              │
+│ created_at                      │
+│ updated_at                      │
+└─────────────────────────────────┘
+
+
+┌─────────────────────────────────┐
+│      SURAT_UKUR                 │
+├─────────────────────────────────┤
+│ id (PK)                         │
+│ no_surat_ukur (VARCHAR) UNIQUE  │
+│ luas_tanah (DECIMAL)            │
+│ desa_kelurahan (VARCHAR)        │
+│ kecamatan (VARCHAR)             │
+│ jenis_pelayanan (ENUM)          │
+│   └─ Balik_nama                 │
+│   └─ Wakaf                      │
+│   └─ Roya                       │
+│   └─ Perubahan_hak              │
+│   └─ Skpt                       │
+│ status_berkas (ENUM)            │
+│   └─ Berkas Masuk               │
+│   └─ Berkas Keluar              │
+│   └─ Lengkap                    │
+│   └─ Belum Lengkap              │
+│ created_at                      │
+│ updated_at                      │
+└─────────────────────────────────┘
+
+
+┌─────────────────────────────────┐
+│      PEMINJAM                   │
+├─────────────────────────────────┤
+│ id (PK)                         │
+│ nama_peminjam (VARCHAR)         │
+│ nomor_identitas (VARCHAR)       │
+│ alamat (TEXT)                   │
+│ nomor_telepon (VARCHAR)         │
+│ buku_tanah_id (FK) ─────┐       │
+│ status_peminjaman (ENUM)│       │
+│   └─ Sedang Dipinjam    │       │
+│   └─ Dikembalikan       │       │
+│ tanggal_peminjaman      │       │
+│ tanggal_kembali (NULL)  │       │
+│ created_at              │       │
+│ updated_at              │       │
+└─────────────────────────┼───────┘
+                          │
+                          │ (1 to Many)
+                          │
+                    ┌─────┴──────────┐
+                    │                 │
+                    ↓                 ↓
+          (BUKU_TANAH.id)    (SURAT_UKUR.id)
+
+
+┌─────────────────────────────────┐
+│      PENGEMBALIAN               │
+├─────────────────────────────────┤
+│ id (PK)                         │
+│ peminjam_id (FK) ──────┐        │
+│ buku_tanah_id (FK)     │        │
+│ tanggal_pengembalian    │        │
+│ kondisi_dokumen (TEXT)  │        │
+│ keterangan (TEXT)       │        │
+│ created_at              │        │
+│ updated_at              │        │
+└─────────────────────────┼────────┘
+                          │
+                          │ (Many to 1)
+                          │
+                    (PEMINJAM.id)
+
+
+                        RELATIONSHIPS
+                ┌─────────────────────────┐
+                │   ENTITY RELATIONS      │
+                └─────────────────────────┘
+
+  PEMINJAM (1) ──has many── PENGEMBALIAN (Many)
+  
+  BUKU_TANAH (1) ──has many── PEMINJAM (Many)
+  
+  BUKU_TANAH (1) ──has many── PENGEMBALIAN (Many)
+  
+  USERS (1) ──admin/system── BUKU_TANAH/SURAT_UKUR/PEMINJAM/PENGEMBALIAN
+```
+
+### Model Relationships (Laravel)
+```php
+// User.php (tidak ada foreign key, system level)
+// 
+
+// BukuTanah.php
+class BukuTanah extends Model {
+    public function peminjams() {
+        return $this->hasMany(Peminjam::class);
+    }
+    
+    public function pengembalians() {
+        return $this->hasMany(Pengembalian::class);
+    }
+}
+
+// SuratUkur.php
+class SuratUkur extends Model {
+    // Stand-alone document, no direct relations
+}
+
+// Peminjam.php
+class Peminjam extends Model {
+    public function bukuTanah() {
+        return $this->belongsTo(BukuTanah::class, 'buku_tanah_id');
+    }
+    
+    public function pengembalians() {
+        return $this->hasMany(Pengembalian::class);
+    }
+}
+
+// Pengembalian.php
+class Pengembalian extends Model {
+    public function peminjam() {
+        return $this->belongsTo(Peminjam::class);
+    }
+    
+    public function bukuTanah() {
+        return $this->belongsTo(BukuTanah::class);
+    }
+}
+```
+
+### Data Flow Example
+```
+ALUR PEMINJAMAN:
+
+1. Admin input BUKU TANAH baru
+   └─ buku_tanah table + entry
+
+2. Peminjam mau pinjam dokumen
+   └─ Admin create PEMINJAM record
+   └─ Link ke buku_tanah_id
+
+3. Dokumen dipinjam
+   └─ peminjam.status_peminjaman = "Sedang Dipinjam"
+   └─ peminjam.tanggal_peminjaman = now()
+
+4. Peminjam mengembalikan
+   └─ Admin create PENGEMBALIAN record
+   └─ Link peminjam_id & buku_tanah_id
+
+5. Setelah pengembalian
+   └─ peminjam.status_peminjaman = "Dikembalikan"
+   └─ peminjam.tanggal_kembali = now()
+```
+
+---
+
+## 🛠️ Tools & Technology Stack Yang Digunakan
+
+### Backend Framework
+| Tool | Version | Fungsi |
+|------|---------|--------|
+| **Laravel** | 11.x | Web Framework utama |
+| **PHP** | 8.2+ | Server-side language |
+| **Composer** | Latest | PHP Package Manager |
+| **Eloquent ORM** | Built-in | Database abstraction layer |
+| **Blade** | Built-in | Template engine |
+
+### Frontend Framework & Libraries
+| Tool | Version | Fungsi |
+|------|---------|--------|
+| **Bootstrap** | 5.x | CSS Framework (UI Components) |
+| **Vite** | Latest | Frontend build tool & dev server |
+| **Font Awesome** | 6.x | Icon library |
+| **jQuery** | 3.x | JavaScript DOM manipulation |
+| **Chart.js** | Latest | Data visualization (charts) |
+
+### Database
+| Tool | Version | Fungsi |
+|------|---------|--------|
+| **MySQL / MariaDB** | 5.7+ | Database engine |
+| **Laravel Migrations** | Built-in | Database schema versioning |
+| **Eloquent** | Built-in | Query builder & ORM |
+
+### Development Tools
+| Tool | Fungsi |
+|------|--------|
+| **VS Code** | Code editor |
+| **Git** | Version control |
+| **Postman** | API testing |
+| **Laravel Tinker** | REPL untuk testing |
+| **PHPUnit** | Unit testing framework |
+| **Artisan CLI** | Laravel command-line tool |
+
+### Server & Deployment
+| Tool | Fungsi |
+|------|--------|
+| **XAMPP** | Local development stack (Apache + PHP + MySQL) |
+| **Apache 2.4** | Web server |
+| **PHP-FPM** | FastCGI Process Manager |
+
+### Additional Packages (composer.json)
+```json
+{
+  "require": {
+    "laravel/framework": "^11.0",
+    "laravel/sanctum": "^4.0",
+    "laravel/tinker": "^2.8",
+    "spatie/laravel-permission": "^6.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.0",
+    "laravel/pint": "^1.0",
+    "fakerphp/faker": "^1.20"
+  }
+}
+```
+
+### Development Dependencies
+| Tool | Fungsi |
+|------|--------|
+| **Laravel Pint** | PHP code formatter |
+| **Faker** | Generate fake data untuk seeding |
+| **PHPUnit** | Unit & Feature testing |
+
+### Browser & Testing
+| Tool | Fungsi |
+|------|--------|
+| **Chrome/Firefox** | Web browser untuk testing |
+| **Laravel Dusk** | Browser automation testing |
+| **CURL / Postman** | API endpoint testing |
+
+### Optional Add-ons (Sudah Tersedia)
+| Tool | Fungsi |
+|------|--------|
+| **Laravel Debugbar** | Debug bar di development |
+| **Clockwork** | Performance monitoring |
+| **Log Viewer** | View Laravel logs dengan UI |
+
+---
+
+### Setup Environment Requirements
+
+#### Wajib Diinstall:
+```
+✅ PHP 8.2 atau lebih baru
+✅ Composer
+✅ MySQL / MariaDB 5.7+
+✅ Git
+✅ Node.js & npm (untuk Vite build)
+```
+
+#### Optional:
+```
+⭕ Laravel Valet (macOS) atau Laragon (Windows) - untuk replace XAMPP
+⭕ Redis - untuk caching
+⭕ Docker - untuk containerization
+```
+
+### Quick Setup Commands
+```bash
+# 1. Clone repo
+git clone <repo-url>
+cd web-arsip-atr-bpn
+
+# 2. Install dependencies
+composer install
+npm install
+
+# 3. Setup environment
+cp .env.example .env
+php artisan key:generate
+
+# 4. Setup database
+php artisan migrate
+php artisan db:seed
+
+# 5. Build frontend assets
+npm run dev          # Development
+npm run build        # Production
+
+# 6. Jalankan server
+php artisan serve
+# Akses: http://localhost:8000
+```
+
+---
+
 ## 🎓 Learning Resources
 
 - **Video**: Laravel Authentication tutorial

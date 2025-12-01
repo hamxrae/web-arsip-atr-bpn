@@ -1,68 +1,71 @@
-@extends('layouts.app')
+@extends('layouts.admin')
+
+@section('title', 'Edit Peminjam - ATR BPN')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-12 col-md-8">
-            <div class="card">
-                <div class="card-header">Edit Data Peminjam</div>
-                <div class="card-body">
-                    @if($errors->any())
-                        <div class="alert alert-danger">
-                            <ul class="mb-0">
-                                @foreach($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
+
+@include('partials.form-header', ['title' => 'Edit Peminjam', 'subtitle' => 'Form edit data peminjam - tampilan konsisten dengan dashboard', 'total' => 0, 'icon' => 'fas fa-users', 'iconColor' => '#ec4899', 'iconBg' => '#fce7f3'])
+
+<!-- ===== ACTION BAR ===== -->
+<div style="margin-bottom: 24px; display: flex; justify-content: flex-end; gap:8px;">
+    <a href="{{ route('admin.peminjam.index') }}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left me-1"></i>Kembali
+    </a>
+</div>
+
+<!-- ===== FORM CARD ===== -->
+<div class="card">
+    <div class="card-body">
+        <form action="{{ route('admin.peminjam.update', $peminjam->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Nama Peminjam</label>
+                    <input type="text" name="nama_peminjam" class="form-control @error('nama_peminjam') is-invalid @enderror" value="{{ old('nama_peminjam', $peminjam->nama_peminjam) }}">
+                    @error('nama_peminjam')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">No HP</label>
+                    <input type="text" name="no_hp" class="form-control @error('no_hp') is-invalid @enderror" value="{{ old('no_hp', $peminjam->no_hp) }}">
+                    @error('no_hp')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', $peminjam->email) }}">
+                    @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">No Surat Tanah</label>
+                    <select name="surat_ukur_id" class="form-select @error('surat_ukur_id') is-invalid @enderror">
+                        <option value="">-- Pilih --</option>
+                        @foreach($suratUkur as $s)
+                            <option value="{{ $s->id }}" {{ old('surat_ukur_id', $peminjam->surat_ukur_id) == $s->id ? 'selected' : '' }}>
+                                {{ $s->no_surat_tanah }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('surat_ukur_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Foto (opsional)</label>
+                    <input type="file" name="foto" class="form-control @error('foto') is-invalid @enderror">
+                    @error('foto')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    @if($peminjam->foto)
+                        <small class="text-muted d-block mt-2">Foto saat ini: {{ $peminjam->foto }}</small>
                     @endif
+                </div>
 
-                    <form method="POST" action="{{ route('admin.peminjam.update', $peminjam->id) }}" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-
-                        <div class="mb-3">
-                            <label class="form-label">Nama Peminjam</label>
-                            <input name="nama_peminjam" type="text" class="form-control" value="{{ old('nama_peminjam', $peminjam->nama_peminjam) }}" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">No HP</label>
-                            <input name="no_hp" type="tel" class="form-control" value="{{ old('no_hp', $peminjam->no_hp) }}" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input name="email" type="email" class="form-control" value="{{ old('email', $peminjam->email) }}" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Surat Ukur</label>
-                            <select name="surat_ukur_id" class="form-select" required>
-                                @foreach($suratUkur as $surat)
-                                    <option value="{{ $surat->id }}" {{ $peminjam->surat_ukur_id == $surat->id ? 'selected' : '' }}>{{ $surat->no_surat_tanah }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Foto Profil</label>
-                            @if($peminjam->foto)
-                                <div class="mb-2">
-                                    <img src="{{ asset('storage/peminjam/'.$peminjam->foto) }}" alt="foto" class="img-thumbnail" style="max-width:150px">
-                                </div>
-                            @endif
-                            <input name="foto" type="file" class="form-control">
-                        </div>
-
-                        <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-success">Update</button>
-                            <a href="{{ route('admin.peminjam.index') }}" class="btn btn-secondary">Batal</a>
-                        </div>
-                    </form>
+                <div class="col-12 d-flex justify-content-end mt-2">
+                    <a href="{{ route('admin.peminjam.index') }}" class="btn btn-outline-secondary me-2">Batal</a>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 

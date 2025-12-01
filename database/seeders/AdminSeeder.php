@@ -13,11 +13,13 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        //
-        \App\Models\User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('firman123'),
-        ]);
+        // Cek apakah user admin sudah ada
+        if (!\App\Models\User::where('email', 'admin@example.com')->exists()) {
+            \App\Models\User::factory()->create([
+                'name' => 'Admin',
+                'email' => 'admin@example.com',
+                'password' => Hash::make('firman123'),
+            ]);
+        }
     }
 }

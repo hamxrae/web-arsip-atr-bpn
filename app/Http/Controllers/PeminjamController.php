@@ -46,7 +46,7 @@ class PeminjamController extends Controller
 
         try {
             Peminjam::create($data);
-            return redirect()->route('peminjam.index')->with('success', 'Data peminjam berhasil ditambahkan.');
+            return redirect()->route('admin.peminjam.index')->with('success', 'Data peminjam berhasil ditambahkan.');
         } catch (\Exception $e) {
             return back()->with('error', 'Gagal menambahkan data: ' . $e->getMessage());
         }
@@ -90,7 +90,7 @@ class PeminjamController extends Controller
 
         try {
             $peminjam->update($data);
-            return redirect()->route('peminjam.index')->with('success', 'Data peminjam berhasil diperbarui.');
+            return redirect()->route('admin.peminjam.index')->with('success', 'Data peminjam berhasil diperbarui.');
         } catch (\Exception $e) {
             return back()->with('error', 'Gagal memperbarui data: ' . $e->getMessage());
         }
@@ -104,6 +104,6 @@ class PeminjamController extends Controller
 
         $peminjam->delete();
 
-        return redirect()->route('peminjam.index')->with('success', 'Data berhasil dihapus.');
+        return redirect()->route('admin.peminjam.index')->with('success', 'Data berhasil dihapus.');
     }
 }

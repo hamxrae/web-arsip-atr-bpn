@@ -32,7 +32,7 @@ class PengembalianController extends Controller
 
         Pengembalian::create($request->all());
 
-        return redirect()->route('pengembalian.index')
+        return redirect()->route('admin.pengembalian.index')
                          ->with('success', 'Data pengembalian berhasil ditambahkan.');
     }
 
@@ -54,7 +54,7 @@ class PengembalianController extends Controller
 
         $pengembalian->update($request->all());
 
-        return redirect()->route('pengembalian.index')
+        return redirect()->route('admin.pengembalian.index')
                          ->with('success', 'Data pengembalian berhasil diperbarui.');
     }
 
@@ -62,7 +62,7 @@ class PengembalianController extends Controller
     {
         $pengembalian->delete();
 
-        return redirect()->route('pengembalian.index')
+        return redirect()->route('admin.pengembalian.index')
                          ->with('success', 'Data pengembalian berhasil dihapus.');
     }
 }

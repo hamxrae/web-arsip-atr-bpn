@@ -1,37 +1,81 @@
-@extends('layouts.app')
+@extends('layouts.admin')
+
+@section('title', 'Tambah Buku Tanah - ATR BPN')
 
 @section('content')
-<h3>Tambah Buku Tanah</h3>
 
-<form method="POST" action="{{ route('admin.bukutanah.store') }}">
-    @csrf
+@include('partials.form-header', ['title' => 'Tambah Buku Tanah', 'subtitle' => 'Form tambah data buku tanah - tampilan konsisten dengan dashboard', 'total' => isset($totalBukuTanah) ? $totalBukuTanah : (isset($data) ? $data->count() : 0), 'icon' => 'fas fa-book', 'iconColor' => '#10b981', 'iconBg' => '#d1fae5'])
 
-    <label>No Buku Tanah</label>
-    <input type="text" name="no_buku_tanah" class="form-control mb-2" required>
+<!-- ===== ACTION BAR ===== -->
+<div style="margin-bottom: 24px; display: flex; justify-content: flex-end; gap:8px;">
+    <a href="{{ route('admin.bukutanah.index') }}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left me-1"></i>Kembali
+    </a>
+</div>
 
-    <label>Nama Pemilik</label>
-    <input type="text" name="nama_pemilik" class="form-control mb-2" required>
+<!-- ===== FORM CARD ===== -->
+<div class="card">
+    <div class="card-body">
+        <form action="{{ route('admin.bukutanah.store') }}" method="POST">
+            @csrf
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">No Buku Tanah</label>
+                    <input type="text" name="no_buku_tanah" class="form-control @error('no_buku_tanah') is-invalid @enderror" value="{{ old('no_buku_tanah') }}">
+                    @error('no_buku_tanah')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
 
-    <label>Desa / Kelurahan</label>
-    <input type="text" name="desa_kelurahan" class="form-control mb-2" required>
+                <div class="col-md-6">
+                    <label class="form-label">Nama Pemilik</label>
+                    <input type="text" name="nama_pemilik" class="form-control @error('nama_pemilik') is-invalid @enderror" value="{{ old('nama_pemilik') }}">
+                    @error('nama_pemilik')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
 
-    <label>Kecamatan</label>
-    <input type="text" name="kecamatan" class="form-control mb-2" required>
+                <div class="col-md-4">
+                    <label class="form-label">Desa / Kelurahan</label>
+                    <input type="text" name="desa_kelurahan" class="form-control @error('desa_kelurahan') is-invalid @enderror" value="{{ old('desa_kelurahan') }}">
+                    @error('desa_kelurahan')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
 
-    <label>Jenis Pelayanan</label>
-    <select name="jenis_pelayanan" class="form-control mb-2" required>
-        <option value="">-- Pilih Jenis Pelayanan --</option>
-        <option value="Wakaf">Wakaf</option>
-        <option value="Balik_nama">Balik Nama</option>
-        <option value="Roya">Roya</option>
-        <option value="Perubahan_hak">Perubahan Hak</option>
-        <option value="Skpt">SKPT</option>
-    </select>
+                <div class="col-md-4">
+                    <label class="form-label">Kecamatan</label>
+                    <input type="text" name="kecamatan" class="form-control @error('kecamatan') is-invalid @enderror" value="{{ old('kecamatan') }}">
+                    @error('kecamatan')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
 
-    <label>Status Berkas</label>
-    <input type="text" name="status_berkas" class="form-control mb-2" required>
+                <div class="col-md-4">
+                    <label class="form-label">Jenis Pelayanan</label>
+                    <select name="jenis_pelayanan" class="form-select @error('jenis_pelayanan') is-invalid @enderror">
+                        <option value="">-- Pilih --</option>
+                        <option value="Balik_nama" {{ old('jenis_pelayanan')=='Balik_nama' ? 'selected' : '' }}>Balik Nama</option>
+                        <option value="Wakaf" {{ old('jenis_pelayanan')=='Wakaf' ? 'selected' : '' }}>Wakaf</option>
+                        <option value="Roya" {{ old('jenis_pelayanan')=='Roya' ? 'selected' : '' }}>Roya</option>
+                        <option value="Perubahan_hak" {{ old('jenis_pelayanan')=='Perubahan_hak' ? 'selected' : '' }}>Perubahan Hak</option>
+                        <option value="Skpt" {{ old('jenis_pelayanan')=='Skpt' ? 'selected' : '' }}>SKPT</option>
+                    </select>
+                    @error('jenis_pelayanan')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
 
-    <button class="btn btn-primary">Simpan</button>
-</form>
+                <div class="col-12">
+                    <label class="form-label">Status Berkas</label>
+                    <select name="status_berkas" class="form-select @error('status_berkas') is-invalid @enderror">
+                        <option value="">-- Pilih --</option>
+                        <option value="Berkas Masuk" {{ old('status_berkas')=='Berkas Masuk' ? 'selected' : '' }}>Berkas Masuk</option>
+                        <option value="Berkas Keluar" {{ old('status_berkas')=='Berkas Keluar' ? 'selected' : '' }}>Berkas Keluar</option>
+                        <option value="Lengkap" {{ old('status_berkas')=='Lengkap' ? 'selected' : '' }}>Lengkap</option>
+                        <option value="Belum Lengkap" {{ old('status_berkas')=='Belum Lengkap' ? 'selected' : '' }}>Belum Lengkap</option>
+                    </select>
+                    @error('status_berkas')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
+
+                <div class="col-12 d-flex justify-content-end mt-2">
+                    <a href="{{ route('admin.bukutanah.index') }}" class="btn btn-outline-secondary me-2">Batal</a>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 @endsection
 
