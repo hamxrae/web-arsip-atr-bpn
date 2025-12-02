@@ -21,45 +21,47 @@ Aplikasi web untuk mengelola arsip dokumen tanah (Buku Tanah, Surat Ukur, data P
 ## Tentang Aplikasi
 
 **Web Arsip ATR-BPN** adalah sistem manajemen arsip digital yang dirancang untuk mengelola:
-- **Buku Tanah**: Dokumen kepemilikan lahan/tanah
-- **Surat Ukur**: Dokumen ukuran dan batas-batas tanah
-- **Data Peminjam**: Informasi pihak yang meminjam dokumen
-- **Pengembalian**: Pencatatan pengembalian dokumen yang telah dipinjam
+
+-   **Buku Tanah**: Dokumen kepemilikan lahan/tanah
+-   **Surat Ukur**: Dokumen ukuran dan batas-batas tanah
+-   **Data Peminjam**: Informasi pihak yang meminjam dokumen
+-   **Pengembalian**: Pencatatan pengembalian dokumen yang telah dipinjam
 
 Aplikasi ini membantu BPN dalam:
-- Menyimpan dan mengorganisir dokumen arsip
-- Melacak peminjaman dokumen
-- Mengelola data pengembalian
-- Meningkatkan efisiensi administrasi  
+
+-   Menyimpan dan mengorganisir dokumen arsip
+-   Melacak peminjaman dokumen
+-   Mengelola data pengembalian
+-   Meningkatkan efisiensi administrasi
 
 ---
 
 ## Fitur Utama
 
-| Fitur | Deskripsi |
-|-------|-----------|
-| **CRUD Buku Tanah** | Tambah, baca, ubah, hapus data buku tanah |
-| **CRUD Surat Ukur** | Kelola dokumen surat ukur dengan relasi ke buku tanah |
-| **CRUD Peminjam** | Kelola data peminjam dengan upload foto |
-| **CRUD Pengembalian** | Catat pengembalian dokumen dengan tanggal/waktu |
-| **Autentikasi** | Login dengan email dan password |
-| **Validasi Data** | Validasi pada sisi server (Laravel) |
-| **Upload File** | Upload foto peminjam dengan sanitasi nama file |
-| **Responsive UI** | Tampilan responsif menggunakan Bootstrap 5 |
+| Fitur                 | Deskripsi                                             |
+| --------------------- | ----------------------------------------------------- |
+| **CRUD Buku Tanah**   | Tambah, baca, ubah, hapus data buku tanah             |
+| **CRUD Surat Ukur**   | Kelola dokumen surat ukur dengan relasi ke buku tanah |
+| **CRUD Peminjam**     | Kelola data peminjam dengan upload foto               |
+| **CRUD Pengembalian** | Catat pengembalian dokumen dengan tanggal/waktu       |
+| **Autentikasi**       | Login dengan email dan password                       |
+| **Validasi Data**     | Validasi pada sisi server (Laravel)                   |
+| **Upload File**       | Upload foto peminjam dengan sanitasi nama file        |
+| **Responsive UI**     | Tampilan responsif menggunakan Bootstrap 5            |
 
 ---
 
 ## Tech Stack
 
-| Layer | Teknologi | Versi |
-|-------|-----------|-------|
-| **Backend** | Laravel | 10.x |
-| **Frontend** | Blade Template + Bootstrap | 5.x |
-| **Database** | MySQL | 5.7+ |
-| **Build Tool** | Vite | 4.x+ |
-| **PHP** | PHP | 8.1+ |
-| **Package Manager** | Composer | 2.x |
-| **Node.js** | npm / yarn | LTS |
+| Layer               | Teknologi                  | Versi |
+| ------------------- | -------------------------- | ----- |
+| **Backend**         | Laravel                    | 10.x  |
+| **Frontend**        | Blade Template + Bootstrap | 5.x   |
+| **Database**        | MySQL                      | 5.7+  |
+| **Build Tool**      | Vite                       | 4.x+  |
+| **PHP**             | PHP                        | 8.1+  |
+| **Package Manager** | Composer                   | 2.x   |
+| **Node.js**         | npm / yarn                 | LTS   |
 
 ---
 
@@ -68,31 +70,37 @@ Aplikasi ini membantu BPN dalam:
 Sebelum menginstal aplikasi, pastikan Anda memiliki:
 
 ### 1. **PHP (8.1 atau lebih tinggi)**
+
 ```bash
 php -v
 # Output contoh: PHP 8.2.12
 ```
 
 ### 2. **MySQL Server (5.7 atau lebih tinggi)**
+
 ```bash
 mysql --version
 # Output contoh: mysql Ver 15.1 (distribution 5.7.44)
 ```
 
 ### 3. **Composer**
-- Download dari [getcomposer.org](https://getcomposer.org)
-- Atau melalui XAMPP (sudah built-in)
+
+-   Download dari [getcomposer.org](https://getcomposer.org)
+-   Atau melalui XAMPP (sudah built-in)
 
 ### 4. **Node.js & npm (LTS)**
-- Download dari [nodejs.org](https://nodejs.org)
-- Versi LTS minimal 18.x
+
+-   Download dari [nodejs.org](https://nodejs.org)
+-   Versi LTS minimal 18.x
 
 ### 5. **Git**
-- Download dari [git-scm.com](https://git-scm.com)
-- Untuk clone repository
+
+-   Download dari [git-scm.com](https://git-scm.com)
+-   Untuk clone repository
 
 ### 6. **Code Editor (Optional)**
-- VSCode, PhpStorm, Sublime Text, dll
+
+-   VSCode, PhpStorm, Sublime Text, dll
 
 ---
 
@@ -122,6 +130,7 @@ composer install
 ```
 
 **Output yang diharapkan:**
+
 ```
 Installing dependencies from lock file
 ...
@@ -135,6 +144,7 @@ php artisan key:generate
 ```
 
 **Output yang diharapkan:**
+
 ```
 Application key set successfully.
 ```
@@ -159,6 +169,7 @@ mysql -u root -p
 ```
 
 Di dalam MySQL shell:
+
 ```sql
 CREATE DATABASE web_arsip_atr_bpn CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 EXIT;
@@ -171,6 +182,7 @@ php artisan migrate
 ```
 
 **Output yang diharapkan:**
+
 ```
 Migrating: 2014_10_12_000000_create_users_table.php
 Migrated: 2014_10_12_000000_create_users_table.php
@@ -184,6 +196,7 @@ php artisan db:seed
 ```
 
 **Output yang diharapkan:**
+
 ```
 Seeding: Database\Seeders\AdminSeeder
 Seeded: Database\Seeders\AdminSeeder
@@ -196,6 +209,7 @@ npm install
 ```
 
 **Output yang diharapkan:**
+
 ```
 added XXX packages in XXs
 ```
@@ -207,6 +221,7 @@ php artisan storage:link
 ```
 
 **Output yang diharapkan:**
+
 ```
 The [public\storage] link has been connected to [storage\app/public]
 ```
@@ -224,6 +239,7 @@ php artisan serve
 ```
 
 **Output:**
+
 ```
 INFO  Server running on [http://127.0.0.1:8000].
 
@@ -237,6 +253,7 @@ npm run dev
 ```
 
 **Output:**
+
 ```
   VITE v4.x.x  ready in XXXms
 
@@ -247,13 +264,15 @@ npm run dev
 ### Akses Aplikasi
 
 Buka browser dan navigasi ke:
+
 ```
 http://127.0.0.1:8000
 ```
 
 **Login dengan akun default:**
-- Email: `admin@example.com`
-- Password: `12345678`
+
+-   Email: `admin@example.com`
+-   Password: `12345678`
 
 ---
 
@@ -336,130 +355,55 @@ RELASI:
 ### Deskripsi Tabel:
 
 #### **USERS**
+
 Tabel untuk menyimpan data pengguna sistem.
-- `id`: Identitas unik pengguna
-- `email`: Email pengguna (unique, untuk login)
-- `password`: Password terenkripsi
+
+-   `id`: Identitas unik pengguna
+-   `email`: Email pengguna (unique, untuk login)
+-   `password`: Password terenkripsi
 
 #### **BUKU_TANAH**
+
 Tabel untuk menyimpan data buku tanah (dokumen kepemilikan lahan).
-- `nomor_buku_tanah`: Nomor identitas buku tanah
-- `nama_pemilik`: Nama pemilik tanah
-- `luas_tanah`: Luas tanah dalam meter persegi
-- `lokasi_tanah`: Lokasi/alamat tanah
-- `keterangan`: Catatan tambahan
+
+-   `nomor_buku_tanah`: Nomor identitas buku tanah
+-   `nama_pemilik`: Nama pemilik tanah
+-   `luas_tanah`: Luas tanah dalam meter persegi
+-   `lokasi_tanah`: Lokasi/alamat tanah
+-   `keterangan`: Catatan tambahan
 
 #### **SURAT_UKUR**
+
 Tabel untuk menyimpan data surat ukur (dokumen ukuran/batas tanah).
-- `buku_tanah_id`: Foreign key ke buku_tanah
-- `ukuran_luar_tanah`: Ukuran tanah bagian luar
-- `no_surat_tanah`: Nomor surat tanah
-- `tahun_tanah`: Tahun pembuatan surat
+
+-   `buku_tanah_id`: Foreign key ke buku_tanah
+-   `ukuran_luar_tanah`: Ukuran tanah bagian luar
+-   `no_surat_tanah`: Nomor surat tanah
+-   `tahun_tanah`: Tahun pembuatan surat
 
 #### **PEMINJAM**
+
 Tabel untuk menyimpan data peminjam dokumen.
-- `surat_ukur_id`: Foreign key ke surat_ukur
-- `nama_peminjam`: Nama peminjam
-- `no_hp`: Nomor telepon peminjam (format: +62 atau 0, diikuti 8-12 digit)
-- `email`: Email peminjam
-- `foto`: Nama file foto peminjam (disimpan di `storage/app/public/peminjam/`)
+
+-   `surat_ukur_id`: Foreign key ke surat_ukur
+-   `nama_peminjam`: Nama peminjam
+-   `no_hp`: Nomor telepon peminjam (format: +62 atau 0, diikuti 8-12 digit)
+-   `email`: Email peminjam
+-   `foto`: Nama file foto peminjam (disimpan di `storage/app/public/peminjam/`)
 
 #### **PENGEMBALIAN**
+
 Tabel untuk menyimpan data pengembalian dokumen.
-- `buku_tanah_id`: Foreign key ke buku_tanah
-- `waktu_pengembalian`: Tanggal dan waktu pengembalian
-- `catatan`: Catatan tambahan terkait pengembalian
+
+-   `buku_tanah_id`: Foreign key ke buku_tanah
+-   `waktu_pengembalian`: Tanggal dan waktu pengembalian
+-   `catatan`: Catatan tambahan terkait pengembalian
 
 ---
 
-## Diagram UML
+## Diagram UML Use Case
 
-### Class Diagram
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                       USER                                  │
-├─────────────────────────────────────────────────────────────┤
-│ - id: integer (PK)                                          │
-│ - name: string                                              │
-│ - email: string (UNIQUE)                                    │
-│ - password: string                                          │
-│ - created_at: timestamp                                     │
-│ - updated_at: timestamp                                     │
-├─────────────────────────────────────────────────────────────┤
-│ + create(data)                                              │
-│ + read(id)                                                  │
-│ + update(id, data)                                          │
-│ + delete(id)                                                │
-└─────────────────────────────────────────────────────────────┘
-              ▲
-              │
-              │ extends
-              │
-┌─────────────────────────────────────────────────────────────┐
-│              AUTHENTICATABLE USER                           │
-├─────────────────────────────────────────────────────────────┤
-│ + login(email, password): boolean                           │
-│ + logout()                                                  │
-│ + isAuthenticated(): boolean                                │
-└─────────────────────────────────────────────────────────────┘
-
-
-┌──────────────────────────────────┐
-│        BUKU_TANAH                │
-├──────────────────────────────────┤
-│ - id: integer (PK)               │
-│ - nomor_buku_tanah: string       │
-│ - nama_pemilik: string           │
-│ - luas_tanah: decimal            │
-│ - lokasi_tanah: string           │
-│ - keterangan: text               │
-│ - created_at: timestamp          │
-│ - updated_at: timestamp          │
-├──────────────────────────────────┤
-│ + hasMany(SuratUkur)             │
-│ + hasMany(Pengembalian)          │
-└──────────────────────────────────┘
-         │         │
-         │ 1:M     │ 1:M
-         │         │
-    ┌────▼─┐   ┌───▼───┐
-    │      │   │       │
-    ▼      ▼   ▼       ▼
-┌──────────────────────────────────┐  ┌──────────────────────────┐
-│      SURAT_UKUR                  │  │   PENGEMBALIAN           │
-├──────────────────────────────────┤  ├──────────────────────────┤
-│ - id: integer (PK)               │  │ - id: integer (PK)       │
-│ - buku_tanah_id: integer (FK)    │  │ - buku_tanah_id: int(FK) │
-│ - ukuran_luar_tanah: decimal     │  │ - waktu_pengembalian: dt │
-│ - no_surat_tanah: string         │  │ - catatan: text          │
-│ - tahun_tanah: year              │  │ - created_at: timestamp  │
-│ - created_at: timestamp          │  │ - updated_at: timestamp  │
-│ - updated_at: timestamp          │  ├──────────────────────────┤
-├──────────────────────────────────┤  │ + belongsTo(BukuTanah)   │
-│ + belongsTo(BukuTanah)           │  └──────────────────────────┘
-│ + hasMany(Peminjam)              │
-└──────────────────────────────────┘
-         │
-         │ 1:M
-         │
-         ▼
-┌──────────────────────────────────┐
-│       PEMINJAM                   │
-├──────────────────────────────────┤
-│ - id: integer (PK)               │
-│ - surat_ukur_id: integer (FK)    │
-│ - nama_peminjam: string          │
-│ - no_hp: string (regex)          │
-│ - email: string (UNIQUE)         │
-│ - foto: string                   │
-│ - created_at: timestamp          │
-│ - updated_at: timestamp          │
-├──────────────────────────────────┤
-│ + belongsTo(SuratUkur)           │
-│ + getFotoUrlAttribute()          │
-└──────────────────────────────────┘
-```
+![UML Web Arsip ATR-BPN](docs/uml-use-case.png)
 
 ### Request Flow Diagram
 
@@ -536,10 +480,10 @@ Tabel untuk menyimpan data pengembalian dokumen.
 
 ### Default Admin Account
 
-| Field | Value |
-|-------|-------|
-| Email | `admin@example.com` |
-| Password | `12345678` |
+| Field    | Value               |
+| -------- | ------------------- |
+| Email    | `admin@example.com` |
+| Password | `12345678`          |
 
 **Catatan:** Ganti password default setelah login pertama kali untuk keamanan!
 
@@ -548,31 +492,35 @@ Tabel untuk menyimpan data pengembalian dokumen.
 Admin memiliki tanggung jawab untuk:
 
 1. **Mengelola Buku Tanah**
-   - Menambah buku tanah baru
-   - Mengedit data buku tanah
-   - Menghapus buku tanah
+
+    - Menambah buku tanah baru
+    - Mengedit data buku tanah
+    - Menghapus buku tanah
 
 2. **Mengelola Surat Ukur**
-   - Menambah surat ukur baru (dengan relasi ke buku tanah)
-   - Mengedit data surat ukur
-   - Menghapus surat ukur
+
+    - Menambah surat ukur baru (dengan relasi ke buku tanah)
+    - Mengedit data surat ukur
+    - Menghapus surat ukur
 
 3. **Mengelola Peminjam**
-   - Menambah data peminjam baru (dengan foto)
-   - Mengedit data peminjam
-   - Menghapus data peminjam
-   - Kelola upload/ubah foto peminjam
+
+    - Menambah data peminjam baru (dengan foto)
+    - Mengedit data peminjam
+    - Menghapus data peminjam
+    - Kelola upload/ubah foto peminjam
 
 4. **Mengelola Pengembalian**
-   - Mencatat pengembalian dokumen
-   - Mengedit data pengembalian
-   - Menghapus data pengembalian
+
+    - Mencatat pengembalian dokumen
+    - Mengedit data pengembalian
+    - Menghapus data pengembalian
 
 5. **Melihat Laporan**
-   - Melihat daftar semua buku tanah
-   - Melihat daftar semua surat ukur
-   - Melihat daftar semua peminjam
-   - Melihat daftar semua pengembalian
+    - Melihat daftar semua buku tanah
+    - Melihat daftar semua surat ukur
+    - Melihat daftar semua peminjam
+    - Melihat daftar semua pengembalian
 
 ---
 
@@ -581,6 +529,7 @@ Admin memiliki tanggung jawab untuk:
 Semua routes dilindungi dengan middleware `auth` dan prefix `/admin`.
 
 ### Buku Tanah Routes
+
 ```
 GET    /admin/buku-tanah                    → BukuTanahController@index      (Daftar)
 GET    /admin/buku-tanah/create             → BukuTanahController@create     (Form Tambah)
@@ -592,6 +541,7 @@ DELETE /admin/buku-tanah/{id}               → BukuTanahController@destroy    (
 ```
 
 ### Surat Ukur Routes
+
 ```
 GET    /admin/daftar-surat-ukur             → SuratUkurController@index      (Daftar)
 GET    /admin/daftar-surat-ukur/create      → SuratUkurController@create     (Form Tambah)
@@ -603,6 +553,7 @@ DELETE /admin/daftar-surat-ukur/{id}        → SuratUkurController@destroy    (
 ```
 
 ### Peminjam Routes
+
 ```
 GET    /admin/peminjam                      → PeminjamController@index       (Daftar)
 GET    /admin/peminjam/create               → PeminjamController@create      (Form Tambah)
@@ -614,6 +565,7 @@ DELETE /admin/peminjam/{id}                 → PeminjamController@destroy     (
 ```
 
 ### Pengembalian Routes
+
 ```
 GET    /admin/pengembalian                  → PengembalianController@index   (Daftar)
 GET    /admin/pengembalian/create           → PengembalianController@create  (Form Tambah)
@@ -631,6 +583,7 @@ DELETE /admin/pengembalian/{id}             → PengembalianController@destroy (
 Aplikasi menggunakan validasi Laravel dengan format array rules:
 
 ### Validasi Buku Tanah
+
 ```
 - nomor_buku_tanah: required|string|max:100|unique:buku_tanah
 - nama_pemilik: required|string|max:100
@@ -640,6 +593,7 @@ Aplikasi menggunakan validasi Laravel dengan format array rules:
 ```
 
 ### Validasi Surat Ukur
+
 ```
 - buku_tanah_id: required|exists:buku_tanah,id
 - ukuran_luar_tanah: nullable|numeric
@@ -648,6 +602,7 @@ Aplikasi menggunakan validasi Laravel dengan format array rules:
 ```
 
 ### Validasi Peminjam
+
 ```
 - surat_ukur_id: required|exists:surat_ukur,id
 - nama_peminjam: required|string|max:100
@@ -657,6 +612,7 @@ Aplikasi menggunakan validasi Laravel dengan format array rules:
 ```
 
 ### Validasi Pengembalian
+
 ```
 - buku_tanah_id: required|exists:buku_tanah,id
 - waktu_pengembalian: required|date_format:Y-m-d\TH:i
@@ -728,8 +684,10 @@ web-arsip-atr-bpn/
 ## Troubleshooting
 
 ### Error 1: "Call to undefined function storage_path()"
+
 **Penyebab:** Laravel belum di-load dengan benar  
 **Solusi:**
+
 ```bash
 composer dump-autoload
 php artisan cache:clear
@@ -737,15 +695,19 @@ php artisan config:clear
 ```
 
 ### Error 2: "The [public/storage] link does not exist"
+
 **Penyebab:** Storage link belum dibuat  
 **Solusi:**
+
 ```bash
 php artisan storage:link
 ```
 
 ### Error 3: Database Connection Error
+
 **Penyebab:** Konfigurasi .env tidak sesuai atau MySQL belum jalan  
 **Solusi:**
+
 ```bash
 # Pastikan MySQL running
 mysql -u root -p
@@ -758,8 +720,10 @@ php artisan tinker
 ```
 
 ### Error 4: "SQLSTATE[23000]: Integrity constraint violation"
+
 **Penyebab:** Duplicate entry pada field UNIQUE atau Foreign Key error  
 **Solusi:**
+
 ```bash
 # Cek data di database
 php artisan tinker
@@ -772,8 +736,10 @@ php artisan db:seed
 ```
 
 ### Error 5: "Session data lost after form submission"
+
 **Penyebab:** Session configuration atau CSRF token issue  
 **Solusi:**
+
 ```bash
 # Bersihkan cache
 php artisan cache:clear
@@ -784,8 +750,10 @@ php artisan session:clear
 ```
 
 ### Error 6: "Cannot find module 'vite'"
+
 **Penyebab:** Dependencies Node.js belum ter-install  
 **Solusi:**
+
 ```bash
 rm -rf node_modules package-lock.json
 npm install
@@ -793,8 +761,10 @@ npm run dev
 ```
 
 ### Error 7: "File upload tidak berfungsi"
+
 **Penyebab:** Storage link belum ada atau permission issue  
 **Solusi:**
+
 ```bash
 # Buat storage link
 php artisan storage:link
@@ -805,8 +775,10 @@ php artisan storage:link
 ```
 
 ### Error 8: "Foto tidak muncul di list peminjam"
+
 **Penyebab:** File exists check atau storage link issue  
 **Solusi:**
+
 ```bash
 # Pastikan storage link ada
 php artisan storage:link
