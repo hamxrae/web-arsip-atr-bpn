@@ -278,72 +278,9 @@ http://127.0.0.1:8000
 
 ## Struktur Database (ERD)
 
+![UML Web Arsip ATR-BPN](docs/erd.png)
+
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                      Web Arsip ATR-BPN                          │
-│                    Database Structure (ERD)                     │
-└─────────────────────────────────────────────────────────────────┘
-
-┌──────────────────────┐
-│      USERS           │
-├──────────────────────┤
-│ id (PK)              │
-│ name                 │
-│ email (UNIQUE)       │
-│ password             │
-│ created_at           │
-│ updated_at           │
-└──────────────────────┘
-        │
-        │ (1:M)
-        │
-        ▼
-┌──────────────────────────────┐
-│      BUKU_TANAH              │
-├──────────────────────────────┤
-│ id (PK)                      │
-│ nomor_buku_tanah             │
-│ nama_pemilik                 │
-│ luas_tanah                   │
-│ lokasi_tanah                 │
-│ keterangan                   │
-│ created_at                   │
-│ updated_at                   │
-└──────────────────────────────┘
-        │
-        ├─────┬────────────┐
-        │     │            │
-        │ (1:M)│ (1:M)      │
-        │     │            │
-        ▼     ▼            ▼
-┌──────────────────────┐  ┌──────────────────────────────┐
-│   SURAT_UKUR        │  │    PENGEMBALIAN              │
-├──────────────────────┤  ├──────────────────────────────┤
-│ id (PK)              │  │ id (PK)                      │
-│ buku_tanah_id (FK)   │  │ buku_tanah_id (FK)           │
-│ ukuran_luar_tanah    │  │ waktu_pengembalian           │
-│ no_surat_tanah       │  │ catatan                      │
-│ tahun_tanah          │  │ created_at                   │
-│ created_at           │  │ updated_at                   │
-│ updated_at           │  └──────────────────────────────┘
-└──────────────────────┘
-        │
-        │ (1:M)
-        │
-        ▼
-┌──────────────────────────────┐
-│      PEMINJAM                │
-├──────────────────────────────┤
-│ id (PK)                      │
-│ surat_ukur_id (FK)           │
-│ nama_peminjam                │
-│ no_hp                        │
-│ email                        │
-│ foto                         │
-│ created_at                   │
-│ updated_at                   │
-└──────────────────────────────┘
-
 
 RELASI:
 - USERS (1) → (M) BUKU_TANAH
